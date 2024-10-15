@@ -10,6 +10,10 @@ configurations {
     }
 }
 
+ext {
+    java = JavaVersion.VERSION_21
+}
+
 allprojects{
     group 'com.unicine'
     version = '1.0-SNAPSHOT'
@@ -17,6 +21,12 @@ allprojects{
 
     repositories {
         mavenCentral()
+    }
+
+    java {
+        sourceCompatibility = java
+
+        targetCompatibility = java
     }
 }
 

@@ -1,9 +1,10 @@
 package com.unicine.entidades;
 
+
+
 import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -11,29 +12,20 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.io.Serializable;
-import java.util.List;
-
-@Entity
+@MappedSuperclass
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Getter
 @Setter
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString
-public class Persona implements Serializable {
+public class Persona {
 
     @Id
     @Column(length = 10, nullable = false)
     @EqualsAndHashCode.Include
     private String cedula;
 
+    @Column(length = 50, nullable = false)
     private String nombre;
-
-    @Column(nullable = false, unique = true)
-    private String email;
-
-    @ElementCollection
-    private List<String> telefonos;
-
 }

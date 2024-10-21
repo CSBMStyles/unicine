@@ -4,7 +4,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 public class Ciudad implements Serializable {
@@ -15,13 +18,17 @@ public class Ciudad implements Serializable {
 
     private String nombre;
 
+    @OneToMany(mappedBy = "ciudad")
+    private List<Cliente> clientes;
+
     public Ciudad() {
         
     }
 
-    public Ciudad(Integer id, String nombre) {
+    public Ciudad(Integer id, String nombre, List<Cliente> clientes) {
         this.id = id;
         this.nombre = nombre;
+        this.clientes = clientes;
     }
 
     public Integer getId() {
@@ -38,6 +45,14 @@ public class Ciudad implements Serializable {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public List<Cliente> getClientes() {
+        return clientes;
+    }
+
+    public void setClientes(List<Cliente> clientes) {
+        this.clientes = clientes;
     }
 
     @Override
@@ -64,6 +79,4 @@ public class Ciudad implements Serializable {
             return false;
         return true;
     }
-
-    
 }

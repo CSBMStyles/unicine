@@ -46,8 +46,8 @@ public class CuponCliente implements Serializable {
     @JoinColumn(nullable = false)
     private Cliente cliente;
 
-    @OneToOne(mappedBy = "cuponCliente", cascade = CascadeType.ALL)
     @ToString.Exclude
+    @OneToOne(mappedBy = "cuponCliente", cascade = CascadeType.ALL)
     private Compra compra;
     
     // SECTION: Constructor

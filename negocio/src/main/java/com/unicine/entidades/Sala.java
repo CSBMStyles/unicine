@@ -18,7 +18,6 @@ import lombok.NoArgsConstructor;
 import lombok.EqualsAndHashCode;
 import java.io.Serializable;
 import java.util.List;
-import java.util.ArrayList;
 
 @Entity
 @Getter
@@ -63,6 +62,5 @@ public class Sala implements Serializable {
         this.tipoSala = tipoSala;
         this.teatro = teatro;
         this.distribucionSilla = distribucionSilla;
-        this.funciones = new ArrayList<>();
     }
 }

@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import lombok.ToString;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
@@ -15,4 +16,8 @@ import java.io.Serializable;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Administrador extends Persona implements Serializable {
 
+    @Builder
+    public Administrador(Integer cedula, String nombre, String correo, String password) {
+        super(cedula, nombre, correo, password);
+    }
 }

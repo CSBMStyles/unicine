@@ -18,7 +18,6 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import java.io.Serializable;
 import java.util.List;
-import java.util.ArrayList;
 import java.time.LocalDateTime;
 
 @Entity
@@ -66,6 +65,5 @@ public class Cupon implements Serializable {
         this.descuento = descuento;
         this.criterio = criterio;
         this.fechaVencimiento = fechaVencimiento;
-        this.cuponClientes =  new ArrayList<>();
     }
 }

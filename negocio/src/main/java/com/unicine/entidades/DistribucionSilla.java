@@ -16,7 +16,6 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import java.io.Serializable;
 import java.util.List;
-import java.util.ArrayList;
 
 @Entity
 @Getter
@@ -64,6 +63,5 @@ public class DistribucionSilla implements Serializable {
         this.total_sillas = total_sillas;
         this.filas = filas;
         this.columnas = columnas;
-        this.salas = new ArrayList<>();
     }
 }

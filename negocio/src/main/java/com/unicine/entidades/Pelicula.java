@@ -77,16 +77,17 @@ public class Pelicula implements Serializable {
 
     // SECTION: Relaciones
 
-    @OneToMany(mappedBy = "pelicula", cascade =  CascadeType.ALL)
     @ToString.Exclude
+    @OneToMany(mappedBy = "pelicula", cascade =  CascadeType.ALL)
     private List<Funcion> funciones;
     
     // SECTION: Constructor
 
     @Builder
-    public Pelicula(EstadoPelicula estado, String nombre, List<String> repartos, String sinopsis, String urlTrailer, Float puntuacion) {
+    public Pelicula(EstadoPelicula estado, GeneroPelicula accion, Map<String, String> imagenes, String nombre, List<String> listaReparto, List<String> repartos, String sinopsis, String urlTrailer, Float puntuacion) {
         this.estado = estado;
         this.generos = new ArrayList<>();
+        this.imagenes = imagenes;
         this.nombre = nombre;
         this.repartos = repartos;
         this.sinopsis = sinopsis;

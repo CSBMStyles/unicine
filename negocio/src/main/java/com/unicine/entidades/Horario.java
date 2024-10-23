@@ -63,9 +63,10 @@ public class Horario implements Serializable {
     // SECTION: Constructor
 
     @Builder
-    public Horario(LocalDateTime fechaInicio, LocalDateTime fechaFin) {
+    public Horario(LocalDateTime fechaInicio, LocalDateTime fechaFin, String hora) {
         this.fechaInicio = fechaInicio;
+        this.hora = hora;
+        this.dias = new ArrayList<>();
         this.fechaFin = fechaFin;
-        this.funciones =  new ArrayList<>();
     }
 }

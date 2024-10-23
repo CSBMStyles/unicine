@@ -11,7 +11,6 @@ import lombok.ToString;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 import java.util.List;
-import java.util.ArrayList;
 import java.io.Serializable;
 
 @Entity
@@ -29,6 +28,5 @@ public class AdministradorTeatro extends Persona implements Serializable {
     @Builder
     public AdministradorTeatro(Integer cedula, String nombre, String correo, String password) {
         super(cedula, nombre, correo, password);
-        this.teatros = new ArrayList<>();
     }
 }

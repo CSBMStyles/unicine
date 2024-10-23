@@ -15,7 +15,6 @@ import lombok.NoArgsConstructor;
 import lombok.EqualsAndHashCode;
 import java.io.Serializable;
 import java.util.List;
-import java.util.ArrayList;
 
 @Entity
 @Getter
@@ -38,8 +37,8 @@ public class Ciudad implements Serializable {
 
     // SECTION: Relaciones
 
-    @OneToMany(mappedBy = "ciudad", cascade = CascadeType.ALL)
     @ToString.Exclude
+    @OneToMany(mappedBy = "ciudad", cascade = CascadeType.ALL)
     private List<Teatro> teatros;
 
     // SECTION: Constructor
@@ -47,6 +46,5 @@ public class Ciudad implements Serializable {
     @Builder
     public Ciudad(String nombre){
         this.nombre = nombre;
-        this.teatros = new ArrayList<>();
     }
 }

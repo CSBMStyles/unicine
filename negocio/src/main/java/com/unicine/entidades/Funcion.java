@@ -17,7 +17,6 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import java.io.Serializable;
 import java.util.List;
-import java.util.ArrayList;
 
 @Entity
 @Getter
@@ -62,6 +61,5 @@ public class Funcion implements Serializable {
         this.sala = sala;
         this.horario = horario;
         this.pelicula = pelicula;
-        this.compras = new ArrayList<>();
     }
 }

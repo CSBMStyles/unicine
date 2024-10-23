@@ -20,7 +20,6 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import java.io.Serializable;
 import java.util.List;
-import java.util.ArrayList;
 import java.time.LocalDateTime;
 
 @Entity
@@ -55,8 +54,8 @@ public class Compra implements Serializable {
 
     // SECTION: Relaciones
 
-    @OneToMany(mappedBy = "compra")
     @ToString.Exclude
+    @OneToMany(mappedBy = "compra")
     private List<CompraConfiteria> compraConfiterias;
 
     @OneToOne
@@ -68,8 +67,8 @@ public class Compra implements Serializable {
     @ManyToOne
     private Funcion funcion;
 
-    @OneToMany(mappedBy = "compra", cascade = CascadeType.ALL)
     @ToString.Exclude
+    @OneToMany(mappedBy = "compra", cascade = CascadeType.ALL)
     private List<Entrada> entradas;
     
     // SECTION: Constructor
@@ -81,6 +80,5 @@ public class Compra implements Serializable {
         this.cuponCliente = cuponCliente;
         this.cliente = cliente;
         this.funcion = funcion;
-        this.entradas = new ArrayList<>();
     }
 }

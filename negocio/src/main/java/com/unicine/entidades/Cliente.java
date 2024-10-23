@@ -11,7 +11,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.Builder;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.util.List;
@@ -22,7 +21,6 @@ import java.util.ArrayList;
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 @ToString(callSuper = true)
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -53,12 +51,11 @@ public class Cliente extends Persona implements Serializable {
     // SECTION: Constructor
 
     @Builder
-    public Cliente(Integer cedula, String nombre, String correo, String password, Boolean estado, List<String> telefonos) {
+    public Cliente(Integer cedula, String nombre, String correo, String password, Boolean estado, Map<String, String> imagenes, List<String> telefonos) {
         super(cedula, nombre, correo, password);
         this.estado = false;
+        this.imagenes = imagenes;
         this.telefonos = telefonos;
-        this.compras = new ArrayList<>();
-        this.cuponClientes = new ArrayList<>();
     }
 
     /*

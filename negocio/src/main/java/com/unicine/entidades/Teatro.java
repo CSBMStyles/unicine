@@ -16,7 +16,6 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import java.io.Serializable;
 import java.util.List;
-import java.util.ArrayList;
 
 @Entity
 @Getter
@@ -60,6 +59,5 @@ public class Teatro implements Serializable {
         this.telefono = telefono;
         this.ciudad = ciudad;
         this.administradorTeatro = administradorTeatro;
-        this.salas = new ArrayList<>();
     }
 }

@@ -10,7 +10,6 @@ import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.EqualsAndHashCode;
 
@@ -18,7 +17,6 @@ import lombok.EqualsAndHashCode;
 @Getter
 @Setter
 @ToString
-@AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Persona {

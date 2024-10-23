@@ -19,8 +19,6 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-import java.util.ArrayList;
-
 @Entity
 @Getter
 @Setter
@@ -57,10 +55,10 @@ public class Confiteria implements Serializable {
     // SECTION: Constructor
 
     @Builder
-    public Confiteria(String nombre, Float precio, String urlImagen) {
+    public Confiteria(String nombre, Float precio, String urlImagen, Map<String, String> imagenes) {
         this.nombre = nombre;
         this.precio = precio;
-        this.compraConfiterias =  new ArrayList<>();
+        this.imagenes = imagenes;
     }
 
     /*

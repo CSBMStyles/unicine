@@ -34,7 +34,7 @@ public class CompraConfiteria implements Serializable {
 
     @Positive
     @Column(nullable = false)
-    private Float precio;
+    private Double precio;
 
     @Column(nullable = false)
     private Integer unidades;
@@ -52,7 +52,7 @@ public class CompraConfiteria implements Serializable {
     // SECTION: Constructor
 
     @Builder
-    public CompraConfiteria(Float precio, Integer unidades, Compra compra, Confiteria confiteria) {
+    public CompraConfiteria(Double precio, Integer unidades, Compra compra, Confiteria confiteria) {
         this.precio = precio;
         this.unidades = unidades;
         this.compra = compra;

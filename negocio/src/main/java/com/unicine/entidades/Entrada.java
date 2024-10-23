@@ -33,7 +33,7 @@ public class Entrada implements Serializable {
 
     @Positive
     @Column(nullable = false)
-    private Float precio;
+    private Double precio;
 
     @Column(nullable = false)
     private Integer fila;
@@ -49,7 +49,7 @@ public class Entrada implements Serializable {
     // SECTION: Constructor
 
     @Builder
-    public Entrada(Float precio, Integer fila, Integer columna, Compra compra) {
+    public Entrada(Double precio, Integer fila, Integer columna, Compra compra) {
         this.precio = precio;
         this.fila = fila;
         this.columna = columna;

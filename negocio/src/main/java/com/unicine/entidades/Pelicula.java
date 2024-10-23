@@ -72,8 +72,8 @@ public class Pelicula implements Serializable {
     // REVIEW: Revisar aplicabilidad de precision y scale
     @Max(5)
     @Positive
-    @Column(nullable = false, precision = 1, scale = 2)
-    private Float puntuacion;
+    //@Column(nullable = false, precision = 1, scale = 2)
+    private Double puntuacion;
 
     // SECTION: Relaciones
 
@@ -84,7 +84,7 @@ public class Pelicula implements Serializable {
     // SECTION: Constructor
 
     @Builder
-    public Pelicula(EstadoPelicula estado, GeneroPelicula accion, Map<String, String> imagenes, String nombre, List<String> listaReparto, List<String> repartos, String sinopsis, String urlTrailer, Float puntuacion) {
+    public Pelicula(EstadoPelicula estado, GeneroPelicula accion, Map<String, String> imagenes, String nombre, List<String> listaReparto, List<String> repartos, String sinopsis, String urlTrailer, Double puntuacion) {
         this.estado = estado;
         this.generos = new ArrayList<>();
         this.imagenes = imagenes;

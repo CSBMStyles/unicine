@@ -36,7 +36,7 @@ public class Funcion implements Serializable {
 
     @Positive
     @Column(nullable = false)
-    private Float precio;
+    private Double precio;
 
     // SECTION: Relaciones
 
@@ -56,7 +56,7 @@ public class Funcion implements Serializable {
     // SECTION: Constructor
 
     @Builder
-    public Funcion(Float precio, Sala sala, Horario horario, Pelicula pelicula) {
+    public Funcion(Double precio, Sala sala, Horario horario, Pelicula pelicula) {
         this.precio = precio;
         this.sala = sala;
         this.horario = horario;

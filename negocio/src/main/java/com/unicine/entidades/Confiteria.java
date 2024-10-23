@@ -40,7 +40,7 @@ public class Confiteria implements Serializable {
 
     @Positive
     @Column(nullable = false)
-    private Float precio;
+    private Double precio;
 
     @ElementCollection
     @Column(nullable = false)
@@ -55,7 +55,7 @@ public class Confiteria implements Serializable {
     // SECTION: Constructor
 
     @Builder
-    public Confiteria(String nombre, Float precio, String urlImagen, Map<String, String> imagenes) {
+    public Confiteria(String nombre, Double precio, String urlImagen, Map<String, String> imagenes) {
         this.nombre = nombre;
         this.precio = precio;
         this.imagenes = imagenes;

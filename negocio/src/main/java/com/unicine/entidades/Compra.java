@@ -50,7 +50,7 @@ public class Compra implements Serializable {
 
     @Positive
     @Column(nullable = false)
-    private Float valorTotal;
+    private Double valorTotal;
 
     // SECTION: Relaciones
 

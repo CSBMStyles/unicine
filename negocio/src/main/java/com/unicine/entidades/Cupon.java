@@ -43,7 +43,7 @@ public class Cupon implements Serializable {
     @Max(100)
     @Positive
     @Column(nullable = false)
-    private Float descuento;
+    private Double descuento;
 
     @Column(nullable = false, length = 100)
     private String criterio;
@@ -60,7 +60,7 @@ public class Cupon implements Serializable {
     // SECTION: Constructor
 
     @Builder
-    public Cupon(String descripcion, Float descuento, String criterio, LocalDateTime fechaVencimiento) {
+    public Cupon(String descripcion, Double descuento, String criterio, LocalDateTime fechaVencimiento) {
         this.descripcion = descripcion;
         this.descuento = descuento;
         this.criterio = criterio;

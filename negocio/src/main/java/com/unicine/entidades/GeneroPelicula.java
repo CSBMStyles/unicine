@@ -1,6 +1,6 @@
 package com.unicine.entidades;
 
-public enum Genero {
+public enum GeneroPelicula {
     TERROR,
     COMEDIA,
     DRAMA,

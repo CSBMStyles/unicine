@@ -1,17 +1,18 @@
 package com.unicine.entidades;
 
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import lombok.Builder;
 import lombok.NoArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import java.io.Serializable;
 import java.util.List;
@@ -23,8 +24,8 @@ import java.util.ArrayList;
 @ToString
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Ciudad implements Serializable {
-    
+public class Teatro implements Serializable {
+
     // SECTION: Atributos
 
     @Id
@@ -34,19 +35,31 @@ public class Ciudad implements Serializable {
     private Integer codigo;
 
     @Column(nullable = false, length = 100)
-    private String nombre;
+    private String direccion;
+
+    @Column(nullable = false, length = 20)
+    private String telefono;
 
     // SECTION: Relaciones
 
-    @OneToMany(mappedBy = "ciudad", cascade = CascadeType.ALL)
-    @ToString.Exclude
-    private List<Teatro> teatros;
+    @ManyToOne
+    private Ciudad ciudad;
 
+    @ManyToOne
+    private AdministradorTeatro administradorTeatro;
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "teatro", cascade = CascadeType.ALL)
+    private List<Sala> salas;
+    
     // SECTION: Constructor
 
     @Builder
-    public Ciudad(String nombre){
-        this.nombre = nombre;
-        this.teatros = new ArrayList<>();
+    public Teatro(String direccion, String telefono, Ciudad ciudad, AdministradorTeatro administradorTeatro) {
+        this.direccion = direccion;
+        this.telefono = telefono;
+        this.ciudad = ciudad;
+        this.administradorTeatro = administradorTeatro;
+        this.salas = new ArrayList<>();
     }
 }

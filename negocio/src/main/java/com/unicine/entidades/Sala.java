@@ -1,12 +1,15 @@
 package com.unicine.entidades;
 
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -23,8 +26,8 @@ import java.util.ArrayList;
 @ToString
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Ciudad implements Serializable {
-    
+public class Sala implements Serializable {
+
     // SECTION: Atributos
 
     @Id
@@ -36,17 +39,30 @@ public class Ciudad implements Serializable {
     @Column(nullable = false, length = 100)
     private String nombre;
 
+    @Column (nullable = false, length = 10)
+    @Enumerated(EnumType.STRING)
+    private TipoSala tipoSala;
+
     // SECTION: Relaciones
 
-    @OneToMany(mappedBy = "ciudad", cascade = CascadeType.ALL)
-    @ToString.Exclude
-    private List<Teatro> teatros;
+    @ManyToOne
+    private Teatro teatro;
 
+    @ManyToOne
+    private DistribucionSilla distribucionSilla;
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "sala",cascade = CascadeType.ALL)
+    private List<Funcion> funciones;
+    
     // SECTION: Constructor
 
     @Builder
-    public Ciudad(String nombre){
+    public Sala(String nombre, TipoSala tipoSala, Teatro teatro, DistribucionSilla distribucionSilla) {
         this.nombre = nombre;
-        this.teatros = new ArrayList<>();
+        this.tipoSala = tipoSala;
+        this.teatro = teatro;
+        this.distribucionSilla = distribucionSilla;
+        this.funciones = new ArrayList<>();
     }
 }

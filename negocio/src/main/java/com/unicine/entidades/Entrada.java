@@ -1,21 +1,19 @@
 package com.unicine.entidades;
 
-import jakarta.persistence.CascadeType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.Positive;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import lombok.Builder;
 import lombok.NoArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import java.io.Serializable;
-import java.util.List;
-import java.util.ArrayList;
 
 @Entity
 @Getter
@@ -23,8 +21,8 @@ import java.util.ArrayList;
 @ToString
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Ciudad implements Serializable {
-    
+public class Entrada implements Serializable {
+
     // SECTION: Atributos
 
     @Id
@@ -33,20 +31,28 @@ public class Ciudad implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer codigo;
 
-    @Column(nullable = false, length = 100)
-    private String nombre;
+    @Positive
+    @Column(nullable = false)
+    private Float precio;
+
+    @Column(nullable = false)
+    private Integer fila;
+
+    @Column(nullable = false)
+    private Integer columna;
 
     // SECTION: Relaciones
 
-    @OneToMany(mappedBy = "ciudad", cascade = CascadeType.ALL)
-    @ToString.Exclude
-    private List<Teatro> teatros;
-
+    @ManyToOne
+    private Compra compra;
+    
     // SECTION: Constructor
 
     @Builder
-    public Ciudad(String nombre){
-        this.nombre = nombre;
-        this.teatros = new ArrayList<>();
+    public Entrada(Float precio, Integer fila, Integer columna, Compra compra) {
+        this.precio = precio;
+        this.fila = fila;
+        this.columna = columna;
+        this.compra = compra;
     }
 }

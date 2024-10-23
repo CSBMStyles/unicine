@@ -1,21 +1,21 @@
 package com.unicine.entidades;
 
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import lombok.Builder;
 import lombok.NoArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import java.io.Serializable;
-import java.util.List;
-import java.util.ArrayList;
 
 @Entity
 @Getter
@@ -23,8 +23,8 @@ import java.util.ArrayList;
 @ToString
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Ciudad implements Serializable {
-    
+public class CuponCliente implements Serializable {
+
     // SECTION: Atributos
 
     @Id
@@ -33,20 +33,29 @@ public class Ciudad implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer codigo;
 
-    @Column(nullable = false, length = 100)
-    private String nombre;
+    @Column(nullable = false)
+    private Boolean estado;
 
     // SECTION: Relaciones
 
-    @OneToMany(mappedBy = "ciudad", cascade = CascadeType.ALL)
-    @ToString.Exclude
-    private List<Teatro> teatros;
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Cupon cupon;
 
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Cliente cliente;
+
+    @OneToOne(mappedBy = "cuponCliente", cascade = CascadeType.ALL)
+    @ToString.Exclude
+    private Compra compra;
+    
     // SECTION: Constructor
 
     @Builder
-    public Ciudad(String nombre){
-        this.nombre = nombre;
-        this.teatros = new ArrayList<>();
+    public CuponCliente(Boolean estado, Cupon cupon, Cliente cliente) {
+        this.estado = estado;
+        this.cupon = cupon;
+        this.cliente = cliente;
     }
 }

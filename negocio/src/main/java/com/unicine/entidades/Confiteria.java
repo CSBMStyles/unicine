@@ -1,18 +1,20 @@
 package com.unicine.entidades;
 
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.Positive;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import lombok.Builder;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
@@ -22,43 +24,43 @@ import java.util.ArrayList;
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
+@ToString
 @NoArgsConstructor
-@ToString(callSuper = true)
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class Cliente extends Persona implements Serializable {
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+public class Confiteria implements Serializable {
 
     // SECTION: Atributos
 
+    @Id
+    @Column(name = "id")
+    @EqualsAndHashCode.Include
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer codigo;
+
+    @Column(nullable = false, length = 100)
+    private String nombre;
+
+    @Positive
     @Column(nullable = false)
-    private Boolean estado;
+    private Float precio;
 
     @ElementCollection
     @Column(nullable = false)
     private Map<String, String> imagenes;
 
-    @ElementCollection
-    private List<String> telefonos;
-
     // SECTION: Relaciones
 
     @ToString.Exclude
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
-    private List<Compra> compras;
-
-    @ToString.Exclude
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
-    private List<CuponCliente> cuponClientes;
-
+    @OneToMany(mappedBy = "confiteria", cascade = CascadeType.ALL)
+    private List<CompraConfiteria> compraConfiterias;
+    
     // SECTION: Constructor
 
     @Builder
-    public Cliente(Integer cedula, String nombre, String correo, String password, Boolean estado, List<String> telefonos) {
-        super(cedula, nombre, correo, password);
-        this.estado = false;
-        this.telefonos = telefonos;
-        this.compras = new ArrayList<>();
-        this.cuponClientes = new ArrayList<>();
+    public Confiteria(String nombre, Float precio, String urlImagen) {
+        this.nombre = nombre;
+        this.precio = precio;
+        this.compraConfiterias =  new ArrayList<>();
     }
 
     /*

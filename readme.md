@@ -19,7 +19,7 @@ Descarge la ultima version del programa: [🔗](https://www.mysql.com/). En el p
 ![alt text](image.png)
 
 > [!NOTE]
-> 2, Es necesario asignarle al root una contraseña que en caso de no hacerlo puede presentar problemar en la configuracion del archivo: `[application.properties](https://github.com/CSBMStyles/Cine/blob/main/negocio/src/main/resources/application.properties)` o de otro tipo.
+> 2, Es necesario asignarle al root una contraseña que en caso de no hacerlo puede presentar problemar en la configuracion del archivo: [application.properties](https://github.com/CSBMStyles/Cine/blob/main/negocio/src/main/resources/application.properties) o de otro tipo.
 
 
 #### JDK
@@ -27,7 +27,7 @@ Descarge la ultima version del programa: [🔗](https://www.mysql.com/). En el p
 Descargue el `JDK-21` en el enlace: [🔗](https://adoptium.net/es/) 
 
 > [!NOTE]
-> la version especifica es por el tema de las dependencias la configuracion esta en el `[build.grable](https://github.com/CSBMStyles/Cine/blob/main/build.gradle)`
+> la version especifica es por el tema de las dependencias la configuracion esta en el [build.grable](https://github.com/CSBMStyles/Cine/blob/main/build.gradle)
 
 ### Entorno de Trabajo
 

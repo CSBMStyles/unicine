@@ -26,7 +26,7 @@ public class AdministradorTeatro extends Persona implements Serializable {
     private List<Teatro> teatros;
 
     @Builder
-    public AdministradorTeatro(Integer cedula, String nombre, String correo, String password) {
-        super(cedula, nombre, correo, password);
+    public AdministradorTeatro(Integer cedula, String nombre, String apellido, String correo, String password) {
+        super(cedula, nombre, apellido, correo, password);
     }
 }

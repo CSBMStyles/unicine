@@ -2,6 +2,7 @@ package com.unicine.test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
@@ -11,8 +12,6 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.jdbc.Sql;
 
-import java.util.Map;
-
 import com.unicine.entidades.Cliente;
 import com.unicine.repo.ClienteRepo;
 
@@ -20,90 +19,80 @@ import com.unicine.repo.ClienteRepo;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class ClienteTest {
 
+    /**
+     * NOTE: En las pruebas de unitarias o de integracion se menciona que se debe comprobar el resultado con el Assertions, pero no esta de mas imprimir el resultado para verificar visualmente que se esta obteniendo lo esperado
+     */
+
     @Autowired
     private ClienteRepo clienteRepo;
 
     @Test
+    @Sql("classpath:dataset.sql")
     public void registrar() {
 
+        // Creamos un mapa de imágenes
         Map<String, String> imagenes = new HashMap<>();
-        imagenes.put("perfil", "http://example.com/imagen-1.jpg");
-        imagenes.put("portada", "http://example.com/imagen-2.jpg");
+        imagenes.put("http://example.com/imagen-1.jpg", "perfil");
+        imagenes.put("http://example.com/imagen-2.jpg", "portada");
 
         // Crear la lista de teléfonos
         ArrayList<String> telefonos = new ArrayList<>();
         telefonos.add("3160369165");
 
-        Cliente cliente = new Cliente(1007248160, "Juan", "juan@gmail.com", "78!Kz9'Aovr1>`A5", false, imagenes, telefonos);
+        Cliente cliente = new Cliente(1004000066, "Juan", "Parra", "juan@gmail.com", "78!Kz9'Aovr1>`A5", false, imagenes, telefonos);
 
         Cliente guardado = clienteRepo.save(cliente);
 
         Assertions.assertEquals("Juan", guardado.getNombre());
+
+        System.out.println(guardado);
     }
 
     @Test
+    @Sql("classpath:dataset.sql")
     public void actualizar() {
-        
-        Map<String, String> imagenes = new HashMap<>();
-        imagenes.put("perfil", "http://example.com/imagen-1.jpg");
-        imagenes.put("portada", "http://example.com/imagen-2.jpg");
 
-        // Crear la lista de teléfonos
-        ArrayList<String> telefonos = new ArrayList<>();
-        telefonos.add("3160369165");
+        // NOTE: El or else es para evitar el <NullPointerException> en caso de no existir
+        Cliente guardado = clienteRepo.findById(1009000011).orElse(null);
 
-        Cliente cliente = new Cliente(1007248160, "Juan", "juan@gmail.com", "78!Kz9'Aovr1>`A5", false, imagenes, telefonos);
+        System.out.println(guardado);
 
-        Cliente guardado = clienteRepo.save(cliente);
-
-        guardado.setNombre("Juanito");
+        guardado.setNombre("Juan");
 
         Cliente actualizado = clienteRepo.save(guardado);
 
-        Assertions.assertEquals("Juanito", actualizado.getNombre());
+        Assertions.assertEquals("Juan", actualizado.getNombre());
+
+        System.out.println(actualizado);
     }
 
     @Test
+    @Sql("classpath:dataset.sql")
     public void eliminar() {
 
-        Map<String, String> imagenes = new HashMap<>();
-        imagenes.put("perfil", "http://example.com/imagen-1.jpg");
-        imagenes.put("portada", "http://example.com/imagen-2.jpg");
+        Cliente buscado = clienteRepo.findById(1009000011).orElse(null);
 
-        // Crear la lista de teléfonos
-        ArrayList<String> telefonos = new ArrayList<>();
-        telefonos.add("3160369165");
+        System.out.println(buscado);
 
-        Cliente cliente = new Cliente(1007248160, "Juan", "juan@gmail.com", "78!Kz9'Aovr1>`A5", false, imagenes, telefonos);
+        clienteRepo.delete(buscado);
 
-        Cliente guardado = clienteRepo.save(cliente);
-
-        clienteRepo.delete(guardado);
-
-        // NOTE: El Optional es un contenedor que puede o no contener un valor no nulo, esto para evitar el <NullPointerException>
-        Optional<Cliente> eliminado = clienteRepo.findById(1007248160);
+        Cliente verificacion = clienteRepo.findById(1009000011).orElse(null);
 
         // NOTE: Verificar que el cliente fue eliminado, donde se usar or else para evitar el <NullPointerException>
-        Assertions.assertNull(eliminado.orElse(null));
+        Assertions.assertNull(verificacion);
+
+        System.out.println(verificacion);
     }
 
     @Test
+    @Sql("classpath:dataset.sql")
     public void obtener() {
 
-        Map<String, String> imagenes = new HashMap<>();
-        imagenes.put("perfil", "http://example.com/imagen-1.jpg");
-        imagenes.put("portada", "http://example.com/imagen-2.jpg");
-
-        // Crear la lista de teléfonos
-        ArrayList<String> telefonos = new ArrayList<>();
-        telefonos.add("3160369165");
-
-        Cliente cliente = new Cliente(1007248160, "Juan", "juan@gmail.com", "78!Kz9'Aovr1>`A5", false, imagenes, telefonos);
-
-        clienteRepo.save(cliente);
-
         // NOTE: El Optional es un contenedor que puede o no contener un valor no nulo, esto para evitar el <NullPointerException>
-        Optional<Cliente> buscado = clienteRepo.findById(1007248160);
+        // REVIEW: Se recomienda usar la primera forma, sin el Optional y mejor aplicar el "orElse" para evitar el <NullPointerException>
+        Optional<Cliente> buscado = clienteRepo.findById(1009000011);
+
+        Assertions.assertTrue(buscado.isPresent());
 
         System.out.println(buscado.orElse(null));
     }
@@ -113,6 +102,8 @@ public class ClienteTest {
     public void listar() {
 
         List<Cliente> clientes = clienteRepo.findAll();
+
+        Assertions.assertEquals(5, clientes.size());
 
         for (Cliente c : clientes) {
             System.out.println(c);

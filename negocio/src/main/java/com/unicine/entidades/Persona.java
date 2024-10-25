@@ -39,15 +39,16 @@ public class Persona {
     @Column(nullable = false, unique = true, length = 150)
     private String correo;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false)
     @ToString.Exclude
     private String password;
 
     // SECTION: Constructor
 
-    public Persona(Integer cedula, String nombre, String correo, String password) {
+    public Persona(Integer cedula, String nombre, String apellido, String correo, String password) {
         this.cedula = cedula;
         this.nombre = nombre;
+        this.apellido = apellido;
         this.correo = correo;
         this.password = password;
     }

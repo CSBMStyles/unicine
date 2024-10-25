@@ -49,8 +49,8 @@ public class Cliente extends Persona implements Serializable {
     // SECTION: Constructor
 
     @Builder
-    public Cliente(Integer cedula, String nombre, String correo, String password, Boolean estado, Map<String, String> imagenes, List<String> telefonos) {
-        super(cedula, nombre, correo, password);
+    public Cliente(Integer cedula, String nombre, String apellido, String correo, String password, Boolean estado, Map<String, String> imagenes, List<String> telefonos) {
+        super(cedula, nombre, apellido, correo, password);
         this.estado = false;
         this.imagenes = imagenes;
         this.telefonos = telefonos;

@@ -1,3 +1,11 @@
+/*
+    NOTE: El dataset es necesario para la ejecución de las pruebas unitarias, entonces hay que tener en cuenta unos puntos importantes:
+
+    1. El dataset constituye un orden, de tal manera que se buscaria insertar primero los datos de las tablas que no tienen dependencias y luego las tablas que tienen dependencias de ellas.
+
+    2. Los datos quee se insertan tienen igualmente un orden que debe seguirse segun como esta en la base de datos, entonces para es se consulta la tabla a tratar luego se insertan los datos.
+*/
+
 insert into cliente values (1009000011, 1, "Rodrigez", "Pepe", "fe5i/PFsjWU0/+4VjImKacbXbnsiQ07+L49lGB5bq4fQ5u5lMiNXljo0s+oSV73N", "pepe@hotmail.com");
 insert into cliente values (1008000022, 0, "Perez", "Juan", "fe5i/PFsjWU0/+4VjImKacbXbnsiQ07+L49lGB5bq4fQ5u5lMiNXljo0s+oSV73N", "juan@outlook.com");
 insert into cliente values (1007000033, 0, "Gomez", "Luis", "fe5i/PFsjWU0/+4VjImKacbXbnsiQ07+L49lGB5bq4fQ5u5lMiNXljo0s+oSV73N", "luis@yahoo.com");

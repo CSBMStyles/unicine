@@ -34,7 +34,7 @@ public class DistribucionSilla implements Serializable {
     private Integer codigo;
 
     // REVIEW: Estudiar aplicacion de arreglo para el esquema
-    @Column(nullable = false)
+    @Column(nullable = false, length = 200)
     private String urlEsquema;
 
     @Positive

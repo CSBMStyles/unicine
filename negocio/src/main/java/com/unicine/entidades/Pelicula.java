@@ -59,14 +59,14 @@ public class Pelicula implements Serializable {
     private List<String> repartos;
 
     @Lob
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "text")
     private String sinopsis;
 
     @ElementCollection
     @Column(nullable = false)
     private Map<String, String> imagenes;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 200)
     private String urlTrailer;
 
     // REVIEW: Revisar aplicabilidad de precision y scale

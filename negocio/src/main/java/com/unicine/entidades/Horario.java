@@ -45,7 +45,7 @@ public class Horario implements Serializable {
     @Column(nullable = false)
     private LocalDateTime fechaFin;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 10)
     private String hora;
 
     // NOTE: Revisar utilidad del fetch mode como reemplazo del lazy collection option

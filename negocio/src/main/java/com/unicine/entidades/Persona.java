@@ -39,7 +39,7 @@ public class Persona {
     @Column(nullable = false, unique = true, length = 150)
     private String correo;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 200)
     @ToString.Exclude
     private String password;
 

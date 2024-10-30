@@ -38,7 +38,7 @@ public class Sala implements Serializable {
     @Column(nullable = false, length = 100)
     private String nombre;
 
-    @Column (nullable = false, length = 10)
+    @Column (nullable = false, length = 50)
     @Enumerated(EnumType.STRING)
     private TipoSala tipoSala;
 

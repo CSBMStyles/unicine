@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.jdbc.Sql;
 
 import com.unicine.entidades.Cliente;
@@ -108,5 +110,66 @@ public class ClienteTest {
         for (Cliente c : clientes) {
             System.out.println(c);
         }
+    }
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void listarPaginado() {
+
+        List<Cliente> clientes = clienteRepo.findAll(PageRequest.of(0, 3)).toList();
+
+        Assertions.assertEquals(3, clientes.size());
+
+        for (Cliente c : clientes) {
+            System.out.println(c);
+        }
+    }
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void listarOdenado() {
+
+        List<Cliente> clientes = clienteRepo.findAll(Sort.by("nombre"));
+
+        Assertions.assertEquals(5, clientes.size());
+
+        for (Cliente c : clientes) {
+            System.out.println(c);
+        }
+    }
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void obtenerClienteCorreo(){
+
+        Cliente cliente = clienteRepo.findByCorreo("pepe@hotmail.com").orElse(null);
+
+        Assertions.assertEquals("pepe@hotmail.com", cliente.getCorreo());
+
+        System.out.println(cliente);
+    }
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void obtenerClienteEstado(){
+
+        List<Cliente> clientes = clienteRepo.findByEstado(true);
+
+        for (Cliente c : clientes) {
+            Assertions.assertTrue(c.getEstado());
+
+            System.out.println(c);
+        }
+    }
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void comprobarAutenticacion(){
+
+        Optional<Cliente> cliente = clienteRepo.comprobarAutenticacion("pepe@hotmail.com", "fe5i/PFsjWU0/+4VjImKacbXbnsiQ07+L49lGB5bq4fQ5u5lMiNXljo0s+oSV73N");
+
+        Assertions.assertTrue(cliente.isPresent());
+
+        System.out.println(cliente);
     }
 }

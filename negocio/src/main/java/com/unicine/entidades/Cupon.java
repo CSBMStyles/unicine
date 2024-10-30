@@ -37,7 +37,7 @@ public class Cupon implements Serializable {
     private Integer codigo;
 
     @Lob
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "text")
     private String descripcion;
 
     @Max(100)

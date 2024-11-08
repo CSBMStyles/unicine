@@ -26,8 +26,6 @@ import java.util.Map;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
-import java.util.ArrayList;
-
 @Entity
 @Getter
 @Setter
@@ -84,9 +82,9 @@ public class Pelicula implements Serializable {
     // SECTION: Constructor
 
     @Builder
-    public Pelicula(EstadoPelicula estado, GeneroPelicula accion, Map<String, String> imagenes, String nombre, List<String> listaReparto, List<String> repartos, String sinopsis, String urlTrailer, Double puntuacion) {
+    public Pelicula(EstadoPelicula estado, List<GeneroPelicula> generos, Map<String, String> imagenes, String nombre, List<String> listaReparto, List<String> repartos, String sinopsis, String urlTrailer, Double puntuacion) {
         this.estado = estado;
-        this.generos = new ArrayList<>();
+        this.generos = generos;
         this.imagenes = imagenes;
         this.nombre = nombre;
         this.repartos = repartos;

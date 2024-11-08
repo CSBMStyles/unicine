@@ -1,6 +1,7 @@
 package com.unicine.repo;
 
 import com.unicine.entidades.Sala;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

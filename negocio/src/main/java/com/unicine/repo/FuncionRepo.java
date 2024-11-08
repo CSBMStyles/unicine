@@ -1,5 +1,6 @@
 package com.unicine.repo;
 
+import com.unicine.dto.DetalleFuncionesDTO;
 import com.unicine.entidades.Funcion;
 import com.unicine.entidades.Horario;
 
@@ -13,6 +14,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface FuncionRepo extends JpaRepository<Funcion, Integer> {
 // NOTE: En la creacion del repositorio se extiende de jpa repository, se le pasa la entidad y el tipo de dato de la llave primaria
+
+    // REVIEW: La razón de esta variable es para evitar escribir el nombre completo de la clase en la consulta es inutil para una sola consulta para para varios DTO es util
+    String d = "com.unicine.dto";
 
     @Query("select f from Sala s join s.funciones f where s.codigo = :codigoSala and f.horario = :horario")
     List<Funcion> obtenerFuncionesHorarioSala(Integer codigoSala, Horario horario);
@@ -32,5 +36,7 @@ public interface FuncionRepo extends JpaRepository<Funcion, Integer> {
     @Query("select f from Funcion f where f.horario.codigo = :codigo")
     Funcion verificarDisponibilidad(Integer codigo);
 
+    @Query("select new " + d + ".DetalleFuncionesDTO( f.pelicula.nombre, f.pelicula.estado, f.pelicula.imagenes, f.sala.codigo, f.sala.teatro.direccion, f.sala.teatro.ciudad.nombre, f.horario ) from Funcion f where f.pelicula.codigo = :codigoPelicula")
+    List<DetalleFuncionesDTO> listarDetallesFunciones(Integer codigoPelicula);
 
 }

@@ -54,6 +54,7 @@ public class Pelicula implements Serializable {
     private String nombre;
 
     @ElementCollection
+    @Column(nullable = true, length = 150)
     private List<String> repartos;
 
     @Lob
@@ -67,22 +68,28 @@ public class Pelicula implements Serializable {
     @Column(nullable = false, length = 200)
     private String urlTrailer;
 
-    // REVIEW: Revisar aplicabilidad de precision y scale
     @Max(5)
     @Positive
-    //@Column(nullable = false, precision = 1, scale = 2)
     private Double puntuacion;
+
+    @Max(100)
+    @Positive
+    private Integer restriccionEdad;
 
     // SECTION: Relaciones
 
     @ToString.Exclude
     @OneToMany(mappedBy = "pelicula", cascade =  CascadeType.ALL)
     private List<Funcion> funciones;
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "pelicula", cascade =  CascadeType.ALL)
+    private List<Coleccion> colecccion;
     
     // SECTION: Constructor
 
     @Builder
-    public Pelicula(EstadoPelicula estado, List<GeneroPelicula> generos, Map<String, String> imagenes, String nombre, List<String> listaReparto, List<String> repartos, String sinopsis, String urlTrailer, Double puntuacion) {
+    public Pelicula(EstadoPelicula estado, List<GeneroPelicula> generos, Map<String, String> imagenes, String nombre, List<String> repartos, String sinopsis, String urlTrailer, Double puntuacion, Integer restriccionEdad) {
         this.estado = estado;
         this.generos = generos;
         this.imagenes = imagenes;
@@ -91,6 +98,7 @@ public class Pelicula implements Serializable {
         this.sinopsis = sinopsis;
         this.urlTrailer = urlTrailer;
         this.puntuacion = puntuacion;
+        this.restriccionEdad = restriccionEdad;
     }
 
     /*

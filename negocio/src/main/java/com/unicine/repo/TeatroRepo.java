@@ -11,6 +11,11 @@ import java.util.List;
 public interface TeatroRepo extends JpaRepository<Teatro, Integer> {
 // NOTE: En la creacion del repositorio se extiende de jpa repository, se le pasa la entidad y el tipo de dato de la llave primaria
 
+    /**
+     * Consulta para obtener los teatros de una ciudad
+     * @param atributo: nombre de la ciudad
+     * @return lista de teatros
+     */
     @Query("select t from Teatro t where t.ciudad.nombre = :nombreCiudad")
     List<Teatro> listarTeatrosCiudad(Integer nombreCiudad);
 }

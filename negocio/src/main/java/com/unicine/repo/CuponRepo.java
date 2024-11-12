@@ -13,6 +13,12 @@ public interface CuponRepo extends JpaRepository<Cupon, Integer> {
     // NOTE: La segunda forma de recibir parametros en una consulta es usando el signo de dos puntos seguido del nombre del parametro, en caso de varios se ponen en orden
     
     // NOTE: La razon de usar el distinct es para que no se repitan los cupones en caso de que un cliente tenga mas de un cupon
+
+    /**
+     * Consulta para obtener los cupones de un cliente
+     * @param atributo: cedula del cliente
+     * @return lista de cupones
+     */
     @Query("select distinct c.cupon from CuponCliente c where c.cliente.cedula = :cedula")
     List<Cupon> listarCuponesCliente(Integer cedula);
 }

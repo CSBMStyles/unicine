@@ -1,5 +1,6 @@
 package com.unicine.test;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,12 +22,12 @@ import com.unicine.repo.ClienteRepo;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class ClienteTest {
 
-    /**
-     * NOTE: En las pruebas de unitarias o de integracion se menciona que se debe comprobar el resultado con el Assertions, pero no esta de mas imprimir el resultado para verificar visualmente que se esta obteniendo lo esperado
-     */
+    /* NOTE: En las pruebas de unitarias o de integracion se menciona que se debe comprobar el resultado con el Assertions, pero no esta de mas imprimir el resultado para verificar visualmente que se esta obteniendo lo esperado */
 
     @Autowired
     private ClienteRepo clienteRepo;
+
+    // SECTION: Consultas basicas para la base de datos
 
     @Test
     @Sql("classpath:dataset.sql")
@@ -35,17 +36,20 @@ public class ClienteTest {
         // Creamos un mapa de imágenes
         Map<String, String> imagenes = new HashMap<>();
         imagenes.put("http://example.com/imagen-1.jpg", "perfil");
-        imagenes.put("http://example.com/imagen-2.jpg", "portada");
 
         // Crear la lista de teléfonos
         ArrayList<String> telefonos = new ArrayList<>();
         telefonos.add("3160369165");
 
-        Cliente cliente = new Cliente(1004000066, "Juan", "Parra", "juan@gmail.com", "78!Kz9'Aovr1>`A5", false, imagenes, telefonos);
+        LocalDate fechaNacimiento = LocalDate.of(1990, 10, 10);
+
+        Cliente cliente = new Cliente(1004000066, "Juan", "Parra", "juan@gmail.com", "78!Kz9'Aovr1>`A5", false, fechaNacimiento, imagenes, telefonos);
 
         Cliente guardado = clienteRepo.save(cliente);
 
         Assertions.assertEquals("Juan", guardado.getNombre());
+
+        System.out.println("\n" + "Registro guardado:");
 
         System.out.println(guardado);
     }
@@ -65,6 +69,8 @@ public class ClienteTest {
 
         Assertions.assertEquals("Juan", actualizado.getNombre());
 
+        System.out.println("\n" + "Registro actualizado:");
+
         System.out.println(actualizado);
     }
 
@@ -83,6 +89,8 @@ public class ClienteTest {
         // NOTE: Verificar que el cliente fue eliminado, donde se usar or else para evitar el <NullPointerException>
         Assertions.assertNull(verificacion);
 
+        System.out.println("\n" + "Registro eliminado:");
+
         System.out.println(verificacion);
     }
 
@@ -96,6 +104,8 @@ public class ClienteTest {
 
         Assertions.assertTrue(buscado.isPresent());
 
+        System.out.println("\n" + "Registro obtenido:");
+
         System.out.println(buscado.orElse(null));
     }
 
@@ -106,6 +116,8 @@ public class ClienteTest {
         List<Cliente> clientes = clienteRepo.findAll();
 
         Assertions.assertEquals(5, clientes.size());
+
+        System.out.println("\n" + "Listado de registros:");
 
         for (Cliente c : clientes) {
             System.out.println(c);
@@ -120,6 +132,8 @@ public class ClienteTest {
 
         Assertions.assertEquals(3, clientes.size());
 
+        System.out.println("\n" + "Listado de registros paginados:");
+
         for (Cliente c : clientes) {
             System.out.println(c);
         }
@@ -133,10 +147,14 @@ public class ClienteTest {
 
         Assertions.assertEquals(5, clientes.size());
 
+        System.out.println("\n" + "Listado de registros ordenados:");
+
         for (Cliente c : clientes) {
             System.out.println(c);
         }
     }
+
+    // SECTION: Consultas personalizadas para la base de datos
 
     @Test
     @Sql("classpath:dataset.sql")

@@ -20,7 +20,6 @@ import java.util.List;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Fetch;
 
-import java.util.ArrayList;
 import java.time.LocalDateTime;
 
 @Entity
@@ -66,7 +65,6 @@ public class Horario implements Serializable {
     public Horario(LocalDateTime fechaInicio, LocalDateTime fechaFin, String hora) {
         this.fechaInicio = fechaInicio;
         this.hora = hora;
-        this.dias = new ArrayList<>();
         this.fechaFin = fechaFin;
     }
 }

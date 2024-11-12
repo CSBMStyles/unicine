@@ -13,6 +13,7 @@ import lombok.ToString;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -29,11 +30,15 @@ public class Cliente extends Persona implements Serializable {
     @Column(nullable = false)
     private Boolean estado;
 
-    @ElementCollection
     @Column(nullable = false)
+    private LocalDate fechaNacimiento;
+
+    @ElementCollection
+    @Column(nullable = true)
     private Map<String, String> imagenes;
 
     @ElementCollection
+    @Column(nullable = true, length = 20)
     private List<String> telefonos;
 
     // SECTION: Relaciones
@@ -46,12 +51,17 @@ public class Cliente extends Persona implements Serializable {
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<CuponCliente> cuponClientes;
 
+    @ToString.Exclude
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    private List<Coleccion> coleccion;
+
     // SECTION: Constructor
 
     @Builder
-    public Cliente(Integer cedula, String nombre, String apellido, String correo, String password, Boolean estado, Map<String, String> imagenes, List<String> telefonos) {
+    public Cliente(Integer cedula, String nombre, String apellido, String correo, String password, Boolean estado, LocalDate fechaNacimiento, Map<String, String> imagenes, List<String> telefonos) {
         super(cedula, nombre, apellido, correo, password);
         this.estado = false;
+        this.fechaNacimiento = fechaNacimiento;
         this.imagenes = imagenes;
         this.telefonos = telefonos;
     }

@@ -58,4 +58,5 @@ public class CompraConfiteria implements Serializable {
         this.compra = compra;
         this.confiteria = confiteria;
     }
+    
 }

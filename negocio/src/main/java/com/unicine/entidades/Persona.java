@@ -6,6 +6,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,6 +25,7 @@ public class Persona {
     // SECTION: Atributos
 
     @Id
+    @Positive
     @Column(length = 10)
     @EqualsAndHashCode.Include
     private Integer cedula;

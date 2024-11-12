@@ -55,7 +55,7 @@ public class Confiteria implements Serializable {
     // SECTION: Constructor
 
     @Builder
-    public Confiteria(String nombre, Double precio, String urlImagen, Map<String, String> imagenes) {
+    public Confiteria(String nombre, Double precio, Map<String, String> imagenes) {
         this.nombre = nombre;
         this.precio = precio;
         this.imagenes = imagenes;

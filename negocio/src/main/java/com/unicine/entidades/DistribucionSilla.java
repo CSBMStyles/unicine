@@ -35,11 +35,11 @@ public class DistribucionSilla implements Serializable {
 
     // REVIEW: Estudiar aplicacion de arreglo para el esquema
     @Column(nullable = false, length = 200)
-    private String urlEsquema;
+    private String esquema;
 
     @Positive
     @Column(nullable = false)
-    private Integer total_sillas;
+    private Integer totalSillas;
 
     @Positive
     @Column(nullable = false)
@@ -58,9 +58,9 @@ public class DistribucionSilla implements Serializable {
     // SECTION: Constructor
 
     @Builder
-    public DistribucionSilla(String urlEsquema, Integer total_sillas, Integer filas, Integer columnas) {
-        this.urlEsquema = urlEsquema;
-        this.total_sillas = total_sillas;
+    public DistribucionSilla(String esquema, Integer totalSillas, Integer filas, Integer columnas) {
+        this.esquema = esquema;
+        this.totalSillas = totalSillas;
         this.filas = filas;
         this.columnas = columnas;
     }

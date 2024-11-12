@@ -6,20 +6,20 @@
     2. Los datos quee se insertan tienen igualmente un orden que debe seguirse segun como esta en la base de datos, entonces para es se consulta la tabla a tratar luego se insertan los datos.
 */
 
-insert into administrador values (1003496468, "Barrera", "Cristian", "fe5i/PFsjWU0/+4VjImKacbXbnsiQ07+L49lGB5bq4fQ5u5lMiNXljo0s+oSV73N", "cristianbarrera100@gmail.com");
+insert into administrador values (1001000000, "Barrera", "Cristian", "cristianbarrera100@gmail.com", "fe5i/PFsjWU0/+4VjImKacbXbnsiQ07+L49lGB5bq4fQ5u5lMiNXljo0s+oSV73N");
 
-insert into administrador_teatro values (1119000000, "Bello", "Jhon", "fe5i/PFsjWU0/+4VjImKacbXbnsiQ07+L49lGB5bq4fQ5u5lMiNXljo0s+oSV73N", "jhona.belloc@uqvirtual.edu.co");
-insert into administrador_teatro values (1228000000, "Camacho", "Maria", "fe5i/PFsjWU0/+4VjImKacbXbnsiQ07+L49lGB5bq4fQ5u5lMiNXljo0s+oSV73N", "mariaf.camachog@uqvirtual.edu.co");
-insert into administrador_teatro values (1337000000, "Barrera", "Cristian", "fe5i/PFsjWU0/+4VjImKacbXbnsiQ07+L49lGB5bq4fQ5u5lMiNXljo0s+oSV73N", "cristians.barreram@uqvirtual.edu.co");
-insert into administrador_teatro values (1446000000, "Barragan", "Alejandro", "fe5i/PFsjWU0/+4VjImKacbXbnsiQ07+L49lGB5bq4fQ5u5lMiNXljo0s+oSV73N", "henrya.barraganp@uqvirtual.edu.co");
-insert into administrador_teatro values (1557000000, "Restrepo", "Rodolfo", "fe5i/PFsjWU0/+4VjImKacbXbnsiQ07+L49lGB5bq4fQ5u5lMiNXljo0s+oSV73N", "rodolfo.restrepo@uqvirtual.edu.com");
-insert into administrador_teatro values (1657000800, "Quintero", "Jose", "fe5i/PFsjWU0/+4VjImKacbXbnsiQ07+L49lGB5bq4fQ5u5lMiNXljo0s+oSV73N", "jose.quintero@uqvirtual.edu.com");
+insert into administrador_teatro values (1119000000, "Bello", "Jhon", "jhona.belloc@uqvirtual.edu.co", "fe5i/PFsjWU0/+4VjImKacbXbnsiQ07+L49lGB5bq4fQ5u5lMiNXljo0s+oSV73N");
+insert into administrador_teatro values (1228000000, "Camacho", "Maria", "mariaf.camachog@uqvirtual.edu.co", "fe5i/PFsjWU0/+4VjImKacbXbnsiQ07+L49lGB5bq4fQ5u5lMiNXljo0s+oSV73N");
+insert into administrador_teatro values (1337000000, "Barrera", "Cristian", "cristians.barreram@uqvirtual.edu.co", "fe5i/PFsjWU0/+4VjImKacbXbnsiQ07+L49lGB5bq4fQ5u5lMiNXljo0s+oSV73N");
+insert into administrador_teatro values (1446000000, "Barragan", "Alejandro", "henrya.barraganp@uqvirtual.edu.co", "fe5i/PFsjWU0/+4VjImKacbXbnsiQ07+L49lGB5bq4fQ5u5lMiNXljo0s+oSV73N");
+insert into administrador_teatro values (1557000000, "Restrepo", "Rodolfo", "rodolfo.restrepo@uqvirtual.edu.com", "fe5i/PFsjWU0/+4VjImKacbXbnsiQ07+L49lGB5bq4fQ5u5lMiNXljo0s+oSV73N");
+insert into administrador_teatro values (1667000800, "Quintero", "Jose", "jose.quintero@uqvirtual.edu.com", "fe5i/PFsjWU0/+4VjImKacbXbnsiQ07+L49lGB5bq4fQ5u5lMiNXljo0s+oSV73N");
 
-insert into cliente values (1009000011, 1, "Rodrigez", "Pepe", "fe5i/PFsjWU0/+4VjImKacbXbnsiQ07+L49lGB5bq4fQ5u5lMiNXljo0s+oSV73N", "pepe@hotmail.com");
-insert into cliente values (1008000022, 0, "Perez", "Juan", "fe5i/PFsjWU0/+4VjImKacbXbnsiQ07+L49lGB5bq4fQ5u5lMiNXljo0s+oSV73N", "juan@outlook.com");
-insert into cliente values (1007000033, 0, "Gomez", "Luis", "fe5i/PFsjWU0/+4VjImKacbXbnsiQ07+L49lGB5bq4fQ5u5lMiNXljo0s+oSV73N", "luis@yahoo.com");
-insert into cliente values (1006000044, 1, "Martinez", "Maria", "fe5i/PFsjWU0/+4VjImKacbXbnsiQ07+L49lGB5bq4fQ5u5lMiNXljo0s+oSV73N", "maria@gmail.com");
-insert into cliente values (1005000055, 0, "Lopez", "Luisa", "fe5i/PFsjWU0/+4VjImKacbXbnsiQ07+L49lGB5bq4fQ5u5lMiNXljo0s+oSV73N", "luisa@google.com");
+insert into cliente values (1009000011, 1, "2001-12-14", "Rodrigez", "Pepe", "pepe@hotmail.com", "fe5i/PFsjWU0/+4VjImKacbXbnsiQ07+L49lGB5bq4fQ5u5lMiNXljo0s+oSV73N");
+insert into cliente values (1008000022, 0, "1993-11-02", "Perez", "Juan", "juan@outlook.com", "fe5i/PFsjWU0/+4VjImKacbXbnsiQ07+L49lGB5bq4fQ5u5lMiNXljo0s+oSV73N");
+insert into cliente values (1007000033, 0, "2000-07-18", "Gomez", "Luis", "luis@yahoo.com", "fe5i/PFsjWU0/+4VjImKacbXbnsiQ07+L49lGB5bq4fQ5u5lMiNXljo0s+oSV73N");
+insert into cliente values (1006000044, 1, "2002-01-06", "Martinez", "Maria", "maria@gmail.com", "fe5i/PFsjWU0/+4VjImKacbXbnsiQ07+L49lGB5bq4fQ5u5lMiNXljo0s+oSV73N");
+insert into cliente values (1005000055, 0, "1991-12-18", "Lopez", "Luisa", "luisa@google.com", "fe5i/PFsjWU0/+4VjImKacbXbnsiQ07+L49lGB5bq4fQ5u5lMiNXljo0s+oSV73N");
 
 insert into ciudad values (1,"Armenia");
 insert into ciudad values (2,"Pereira");
@@ -38,10 +38,10 @@ insert into teatro values (1228000000, 4, 2, "3185749321", "Calle 3 # 1 A 24 Sur
 insert into teatro values (1228000000, 4, 3, "3124720846", "Calle 16 4-2 Centro");
 insert into teatro values (1446000000, 3, 4, "3001247585", "Carrera 7 # B 12-13 Sur");
 insert into teatro values (1557000000, 2, 5, "3186347896", "Carrera 9 # 4-7 Oeste");
-insert into teatro values (1657000800, 1, 6, "3178532410", "Calle 4 # 4-2 Sur");
+insert into teatro values (1667000800, 1, 6, "3178532410", "Calle 4 # 4-2 Sur");
 
 insert into sala values (2, 1, 5, "Atlantis", "XD");
-insert into sala values (1, 2, 5, "FLoresta", "DOS_DIMENSIONES");
+insert into sala values (1, 2, 5, "Floresta", "DOS_DIMENSIONES");
 insert into sala values (1, 3, 4, "Gran Plaza Bosa", "IMAX");
 insert into sala values (1, 4, 6, "Altavista", "IMAX");
 insert into sala values (3, 5, 3, "Multiplaza", "XD");
@@ -49,12 +49,12 @@ insert into sala values (4, 6, 2, "Parque Colonia", "DOS_DIMENSIONES");
 insert into sala values (5, 7, 1, "Plaza Imperial", "DX4");
 insert into sala values (1, 8, 1, "Colon", "IMAX");
 
-insert into horario values (1, "2024-12-14T20:00:00", "2024-12-14T22:00:00", "20:00");
-insert into horario values (2, "2024-12-15T21:00:00", "2024-12-15T23:00:00", "21:00");
-insert into horario values (3, "2024-12-16T22:00:00", "2024-12-16T23:00:00", "22:00");
-insert into horario values (4, "2024-12-17T20:00:00", "2024-12-17T22:00:00", "20:00");
-insert into horario values (5, "2024-12-22T20:00:00", "2024-12-22T22:00:00", "20:00");
-insert into horario values (6, "2024-12-24T20:00:00", "2024-12-24T23:00:00", "20:00");
+insert into horario values (1, "2024-12-14T22:00:00", "2024-12-14T20:00:00", "20:00");
+insert into horario values (2, "2024-12-15T23:00:00", "2024-12-15T21:00:00", "21:00");
+insert into horario values (3, "2024-12-16T23:00:00", "2024-12-16T22:00:00", "22:00");
+insert into horario values (4, "2024-12-17T22:00:00", "2024-12-17T20:00:00", "20:00");
+insert into horario values (5, "2024-12-22T22:00:00", "2024-12-22T20:00:00", "20:00");
+insert into horario values (6, "2024-12-24T23:00:00", "2024-12-24T20:00:00", "20:00");
 
 insert into horario_dias values (0, 1);
 insert into horario_dias values (1, 1);
@@ -99,11 +99,11 @@ insert into horario_dias values (4, 6);
 insert into horario_dias values (5, 6);
 insert into horario_dias values (6, 6);
 
-insert into pelicula values (1, 4.2, "Pinocho", "https://www.youtube.com/embed/TITv1TNi5mI", "PROXIMO_ESTRENO", "En un pueblo italiano, el títere de madera Pinocho cobra vida gracias al Hada Azul. Pinocho se esfuerza por comportarse como un niño de carne y hueso, pero su vida da un giro al abandonar a su padre para unirse a un circo.");
-insert into pelicula values (2, 3.5, "Dragon Ball: Super Hero", "https://www.youtube.com/embed/lXLPVQ-WrU4", "EN_CARTELERA", "La malvada organización Red Ribbon Army se reforma con nuevos y más poderosos androides, Gamma {1} y Gamma {2} para buscar venganza.");
-insert into pelicula values (3, 4.0, "Smile", "https://www.youtube.com/embed/yhKiQGJop_8", "EN_CARTELERA", "Después de ser testigo de un extraño y traumático accidente que involucró a una paciente, la Dr. Rose Cotter (Sosie Bacon) empieza a experimentar sucesos aterradores que no puede explicarse. A medida que el terror comienza a apoderarse de su vida, Rose debe enfrentarse a su pasado para sobrevivir y escapar de su horrible nueva realidad.");
-insert into pelicula values (4, 4.5, "Minions", "https://www.youtube.com/embed/W27moupirnI", "EN_CARTELERA", "En los años 70, Gru crece siendo un gran admirador de <<Los salvajes seis>>, un supergrupo de villanos. Para demostrarles que puede ser malvado, Gru idea un plan con la esperanza de formar parte de la banda. Por suerte, cuenta con la ayuda de sus fieles seguidores, los Minions, siempre dispuestos a sembrar el caos.");
-insert into pelicula values (5, 4.1, "Encanto", "https://www.youtube.com/embed/SAH_W9q_brE", "PROXIMO_ESTRENO", "En lo alto de las montañas de Colombia hay un lugar encantado llamado Encanto. Aquí, en una casa mágica, vive la extraordinaria familia Madrigal donde todos tienen habilidades fantásticas.");
+insert into pelicula values (1, 4.2, 18, "Pinocho", "https://www.youtube.com/embed/TITv1TNi5mI", "PROXIMO_ESTRENO", "En un pueblo italiano, el títere de madera Pinocho cobra vida gracias al Hada Azul. Pinocho se esfuerza por comportarse como un niño de carne y hueso, pero su vida da un giro al abandonar a su padre para unirse a un circo.");
+insert into pelicula values (2, 3.5, null, "Dragon Ball: Super Hero", "https://www.youtube.com/embed/lXLPVQ-WrU4", "EN_CARTELERA", "La malvada organización Red Ribbon Army se reforma con nuevos y más poderosos androides, Gamma {1} y Gamma {2} para buscar venganza.");
+insert into pelicula values (3, 4.0, 18, "Smile", "https://www.youtube.com/embed/yhKiQGJop_8", "EN_CARTELERA", "Después de ser testigo de un extraño y traumático accidente que involucró a una paciente, la Dr. Rose Cotter (Sosie Bacon) empieza a experimentar sucesos aterradores que no puede explicarse. A medida que el terror comienza a apoderarse de su vida, Rose debe enfrentarse a su pasado para sobrevivir y escapar de su horrible nueva realidad.");
+insert into pelicula values (4, 4.5, null, "Minions", "https://www.youtube.com/embed/W27moupirnI", "EN_CARTELERA", "En los años 70, Gru crece siendo un gran admirador de <<Los salvajes seis>>, un supergrupo de villanos. Para demostrarles que puede ser malvado, Gru idea un plan con la esperanza de formar parte de la banda. Por suerte, cuenta con la ayuda de sus fieles seguidores, los Minions, siempre dispuestos a sembrar el caos.");
+insert into pelicula values (5, 4.1, 18, "Encanto", "https://www.youtube.com/embed/SAH_W9q_brE", "PROXIMO_ESTRENO", "En lo alto de las montañas de Colombia hay un lugar encantado llamado Encanto. Aquí, en una casa mágica, vive la extraordinaria familia Madrigal donde todos tienen habilidades fantásticas.");
 
 insert into pelicula_repartos values(1, "Tom Hanks");
 insert into pelicula_repartos values(1, "Cynthia Erivo");
@@ -166,11 +166,11 @@ insert into cliente_telefonos values (1005000055, "3101036478");
 insert into cupon values (0.15, 1, "2022-12-25T20:00:00", "Primer registro", "Cupon del 15% de descuento por registrarse por primera vez en nuestra plataforma");
 insert into cupon values (0.1, 2, "2022-12-19T15:45:00", "Primera compra", "Cupon del 10% de descuento por realizar una primera compra por medio de nuestra plataforma");
 
-insert into confiteria values (1, 15000, "Combo para niños");
-insert into confiteria values (2, 49900, "Combo para dos");
+insert into confiteria values (1, 15000, "Combo para Niños");
+insert into confiteria values (2, 49900, "Combo para Pareja");
 insert into confiteria values (3, 29800, "Crispeta + Dos Gaseosas");
-insert into confiteria values (4, 19900, "Gaseosa + Perro caliente + Crispeta + KitKat");
-insert into confiteria values (5, 6000, "Nevado de arequipe");
+insert into confiteria values (4, 19900, "Gaseosa + Perro Caliente + Crispeta + KitKat");
+insert into confiteria values (5, 6000, "Nevado de Arequipe");
 
 insert into confiteria_imagenes values (1,"https://res.cloudinary.com/dwu4xtiun/image/upload/v1667927564/unicine/confiteria/combo_ni%C3%B1os_ydpbay.jpg", "unicine/confiteria/combo_ni%C3%B1os_ydpbay");
 insert into confiteria_imagenes values (2,"https://res.cloudinary.com/dwu4xtiun/image/upload/v1667927565/unicine/confiteria/combo_para_dos_r5rvxp.jpg", "unicine/confiteria/combo_para_dos_r5rvxp");
@@ -203,3 +203,9 @@ insert into entrada values (3, 3, 5, 3, 24000);
 insert into entrada values (4, 4, 2, 4, 54800);
 insert into entrada values (5, 4, 2, 5, 54800);
 insert into entrada values (5, 5, 3, 6, 72000);
+
+insert into coleccion (cliente_cedula, pelicula_id, puntuacion, estado_pelicula_propio) values (1009000011, 1, 4.0, "VISTO");
+insert into coleccion (cliente_cedula, pelicula_id, puntuacion, estado_pelicula_propio) values (1008000022, 1, 3.0, "EN_ESPERA");
+insert into coleccion (cliente_cedula, pelicula_id, puntuacion, estado_pelicula_propio) values (1008000022, 2, 5.0, "VISTO");
+insert into coleccion (cliente_cedula, pelicula_id, puntuacion, estado_pelicula_propio) values (1007000033, 3, 4.0, "FAVORITO");
+insert into coleccion (cliente_cedula, pelicula_id, puntuacion, estado_pelicula_propio) values (1006000044, 3, 1.0, "VISTO");

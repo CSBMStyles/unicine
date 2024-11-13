@@ -35,7 +35,7 @@ public class HorarioTest {
         LocalDateTime fechaInicio = LocalDateTime.of(2024, 12, 30, 20, 00);
         LocalDateTime fechaFin = LocalDateTime.of(2024, 12, 30, 22, 00);
 
-        Horario horario = new Horario(fechaInicio, fechaFin, "20:00");
+        Horario horario = new Horario(fechaInicio, fechaFin);
         horario.setCodigo(7);
 
         Horario guardado = horarioRepo.save(horario);
@@ -55,11 +55,12 @@ public class HorarioTest {
 
         System.out.println(guardado);
 
-        guardado.setHora("16:00");
+        LocalDateTime fechaInicio = LocalDateTime.of(2024, 12, 10, 16, 00);
+        guardado.setFechaInicio(fechaInicio);
 
         Horario actualizado = horarioRepo.save(guardado);
 
-        Assertions.assertEquals("16:00", actualizado.getHora());
+        Assertions.assertEquals("2024-12-10T16:00", actualizado.getFechaInicio().toString());
 
         System.out.println("\n" + "Registro actualizado:");
 

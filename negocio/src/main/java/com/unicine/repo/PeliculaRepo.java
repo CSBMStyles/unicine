@@ -3,6 +3,7 @@ package com.unicine.repo;
 import com.unicine.entidades.EstadoPelicula;
 import com.unicine.entidades.Pelicula;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,6 +38,14 @@ public interface PeliculaRepo extends JpaRepository<Pelicula, Integer> {
      */
     @Query("select p, f from Pelicula p left join p.funciones f where p.nombre like concat('%',:nombre,'%') ")
     List<Object[]> buscarPeliculasFuncion(String nombre);
+
+    /**
+     * Consulta para obtener las peliculas de una funcion a partir de su fecha en el horario
+     * @param atributo: codigo de la pelicula, fecha del horario
+     * @return lista de elementos con nombre de la pelicula, codigo de la funcion y horario
+     */
+    @Query("select p.nombre, f.codigo, h from Funcion f join f.horario h join f.pelicula p where p.codigo = :codigoPelicula and function('DATE', h.fechaInicio) = :fecha")
+    List<Object[]> obtenerPeliculaFecha(Integer codigoPelicula, LocalDate fecha);
 
     /**
      * Consulta para obtener las peliculas de una ciudad y estado

@@ -4,7 +4,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,9 +15,6 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import java.io.Serializable;
 import java.util.List;
-
-import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.Fetch;
 
 import java.time.LocalDateTime;
 
@@ -44,15 +40,6 @@ public class Horario implements Serializable {
     @Column(nullable = false)
     private LocalDateTime fechaFin;
 
-    @Column(nullable = false, length = 10)
-    private String hora;
-
-    // NOTE: Revisar utilidad del fetch mode como reemplazo del lazy collection option
-    @ElementCollection
-    @Fetch(FetchMode.SELECT)
-    private List<Dias> dias;
-
-
     // SECTION: Relaciones
 
     @ToString.Exclude
@@ -62,9 +49,8 @@ public class Horario implements Serializable {
     // SECTION: Constructor
 
     @Builder
-    public Horario(LocalDateTime fechaInicio, LocalDateTime fechaFin, String hora) {
+    public Horario(LocalDateTime fechaInicio, LocalDateTime fechaFin) {
         this.fechaInicio = fechaInicio;
-        this.hora = hora;
         this.fechaFin = fechaFin;
     }
 }

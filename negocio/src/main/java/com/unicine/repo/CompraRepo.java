@@ -44,7 +44,7 @@ public interface CompraRepo extends JpaRepository<Compra, Integer> {
     List<Object[]> obtenerComprasClientes();
 
     /**
-     * Consulta para obtener la información de las compras de un cliente
+     * - Consulta para obtener la información de las compras de un cliente
      * @param atributo: cedula del cliente
      * @return lista del detalle de la compra: valor total, fecha de compra, codigo de la funcion, total de las entradas, total de la confiteria
      */
@@ -66,4 +66,19 @@ public interface CompraRepo extends JpaRepository<Compra, Integer> {
      */
     @Query("select conf.precio * conf.unidades from CompraConfiteria conf where conf.compra.codigo = :codigoCompra")
     List<Double> obtenerPreciosConfiteriaCompra(Integer codigoCompra);
+
+    /**
+     * - Consulta para obtener el valor total de las compras de un cliente
+     * @param atributo: cedula del cliente
+     * @return valor total de las compras
+     */
+    @Query("select sum(c.valorTotal) from Cliente cl join cl.compras c where cl.cedula = :cedula")
+    Double obtenerTotalCompras(Integer cedula);
+
+    /**
+     * - Consulta para obtener la compra mas costosa de todods los clientes
+     * @return lista de compras mas costosas
+     */
+    @Query("select cl.correo, c from Cliente cl join cl.compras c where c.valorTotal = (select max(c.valorTotal) from Compra c)")
+    List<Object[]> obtenerCompraCostosa();
 }

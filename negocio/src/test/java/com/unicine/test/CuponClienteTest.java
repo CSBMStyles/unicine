@@ -23,7 +23,11 @@ import com.unicine.repo.CuponRepo;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class CuponClienteTest {
 
-    /* NOTE: En las pruebas de unitarias o de integracion se menciona que se debe comprobar el resultado con el Assertions, pero no esta de mas imprimir el resultado para verificar visualmente que se esta obteniendo lo esperado */
+    /*
+     * NOTE: En las pruebas de unitarias o de integracion se menciona que se debe
+     * comprobar el resultado con el Assertions, pero no esta de mas imprimir el
+     * resultado para verificar visualmente que se esta obteniendo lo esperado
+     */
 
     @Autowired
     private CuponClienteRepo cuponClienteRepo;
@@ -50,7 +54,7 @@ public class CuponClienteTest {
         Assertions.assertNotNull(guardado);
 
         System.out.println("\n" + "Registro guardado:");
-        
+
         System.out.println(guardado);
     }
 
@@ -101,7 +105,7 @@ public class CuponClienteTest {
         Assertions.assertTrue(buscado.isPresent());
 
         System.out.println("\n" + "Registro obtenido:");
-        
+
         System.out.println(buscado.orElse(null));
     }
 
@@ -147,6 +151,51 @@ public class CuponClienteTest {
 
         for (CuponCliente c : cuponesClientes) {
             System.out.println(c);
+        }
+    }
+
+    //SECTION: Consultas personalizadas para la base de datos
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void obtenerCuponCliente() {
+        
+        Optional<CuponCliente> cuponesClientes = cuponClienteRepo.obtenerCuponCliente(1, 1005000055);
+
+        Assertions.assertTrue(cuponesClientes.isPresent());
+
+        System.out.println("\n" + "Listado de registros obtenidos por cliente:");
+
+        System.out.println(cuponesClientes.orElse(null));
+    }
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void listarCuponesCliente() {
+        
+        List<CuponCliente> cuponesClientes = cuponClienteRepo.listarCuponesCliente(1006000044);
+
+        Assertions.assertEquals(2, cuponesClientes.size());
+
+        System.out.println("\n" + "Listado de registros obtenidos por cliente:");
+
+        for (CuponCliente c : cuponesClientes) {
+            System.out.println(c);
+        }
+    }
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void contarCuponesRedimidosCliente() {
+        
+        List<Object[]> cuponesClientes = cuponClienteRepo.contarCuponesRedimidosCliente();
+
+        Assertions.assertNotNull(cuponesClientes);
+
+        System.out.println("\n" + "Listado de registros obtenidos por cliente:");
+
+        for (Object[] c : cuponesClientes) {
+            System.out.println("Cedula: " + c[0] + " Nombre: " + c[1] + " Cantidad: " + c[2]);
         }
     }
 }

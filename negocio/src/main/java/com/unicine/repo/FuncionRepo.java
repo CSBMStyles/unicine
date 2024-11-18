@@ -4,8 +4,8 @@ import com.unicine.dto.DetalleFuncionesDTO;
 import com.unicine.entidades.Funcion;
 import com.unicine.entidades.Horario;
 
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -51,21 +51,12 @@ public interface FuncionRepo extends JpaRepository<Funcion, Integer> {
     List<Funcion> listarFuncionesCiudad(Integer codigoCiudad);
 
     /**
-     * Consulta para verificar la disponibilidad de sillas
-     * @param atributos: fila de la distribucion, columna de la distribucion
-     * @return funcion
-     */
-    @Query("select f from Funcion f where f.sala.distribucionSilla.filas = :fila and f.sala.distribucionSilla.columnas = :columna")
-    Optional<Funcion> verificarDisponibilidadSillas(Integer fila, Integer columna);
-
-    /**
      * Consulta para verificar la disponibilidad de una funcion
      * @param atributos: codigo de la funcion
      * @return funcion
      */
     @Query("select f from Funcion f where f.horario.codigo = :codigo")
-    Funcion verificarDisponibilidad(Integer codigo);
-
+    List<Funcion> verificarDisponibilidad(Integer codigo);
 
     /**
      * Consulta para obtener los detalles de las funciones de una pelicula
@@ -75,4 +66,19 @@ public interface FuncionRepo extends JpaRepository<Funcion, Integer> {
     @Query("select new " + direccion + ".DetalleFuncionesDTO( f.pelicula.nombre, f.pelicula.estado, f.pelicula.imagenes, f.sala.codigo, f.sala.teatro.direccion, f.sala.teatro.ciudad.nombre, f.horario ) from Funcion f where f.pelicula.codigo = :codigoPelicula")
     List<DetalleFuncionesDTO> listarDetallesFunciones(Integer codigoPelicula);
 
+    /**
+     * - Consulta para obtener las funciones con compras vacias de teatros especificos
+     * @param atributos: codigo del teatro
+     * @return lista de funciones
+     */
+    @Query("select f from Funcion f where f.compras is empty and f.sala.teatro.codigo = :codigoTeatro")
+    List<Funcion> funcionesComprasVaciasTeatro(Integer codigoTeatro);
+
+    /**
+     * - Consulta para obtener las funciones de un teatro en un rango de fechas usa el current date para tomar la fecha actual en fecha
+     * @param atributos: codigo del teatro, fecha de inicio, fecha de fin
+     * @return lista de funciones
+     */
+    @Query("select f from Funcion f where f.sala.teatro.codigo = :codigoTeatro and f.horario.fechaInicio between :fechaInicio and :fechaFin")
+    List<Funcion> listarFuncionesTeatroFecha(Integer codigoTeatro, LocalDateTime fechaInicio, LocalDateTime fechaFin);
 }

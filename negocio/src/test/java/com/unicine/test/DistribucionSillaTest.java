@@ -137,4 +137,17 @@ public class DistribucionSillaTest {
             System.out.println(c);
         }
     }
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void obtenerDistribucionFuncion() {
+
+        Optional<DistribucionSilla> buscado = distribucionSillaRepo.obtenerDistribucionFuncion(1);
+
+        Assertions.assertTrue(buscado.isPresent());
+
+        System.out.println("\n" + "Registro obtenido:");
+
+        System.out.println(buscado.orElse(null));
+    }
 }

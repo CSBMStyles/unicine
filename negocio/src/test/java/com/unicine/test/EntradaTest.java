@@ -11,7 +11,7 @@ import org.springframework.test.context.jdbc.Sql;
 import java.util.List;
 import java.util.Optional;
 
-import com.unicine.dto.SillaOcupadaDTO;
+import com.unicine.dto.DetalleSillaDTO;
 import com.unicine.entidades.Compra;
 import com.unicine.entidades.Entrada;
 import com.unicine.repo.CompraRepo;
@@ -143,10 +143,24 @@ public class EntradaTest {
         }
     }
 
+    // SECTION: Consultas personalizadas para la base de datos
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void obtenerEntradasCompra() {
+        List<Entrada> entradas = entradaRepo.obtenerEntradasCompra(1);
+
+        Assertions.assertEquals(1, entradas.size());
+
+        System.out.println("Resultado: \n");
+
+        entradas.forEach(System.out::println);
+    }
+
     @Test
     @Sql("classpath:dataset.sql")
     public void obtenerSillasOcupadas() {
-        List<SillaOcupadaDTO> sillas = entradaRepo.obtenerSillasOcupadas(2);
+        List<DetalleSillaDTO> sillas = entradaRepo.obtenerSillasOcupadas(2);
 
         Assertions.assertEquals(1, sillas.size());
 

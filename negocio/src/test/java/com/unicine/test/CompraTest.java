@@ -29,7 +29,11 @@ import com.unicine.repo.FuncionRepo;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class CompraTest {
 
-    /* NOTE: En las pruebas de unitarias o de integracion se menciona que se debe comprobar el resultado con el Assertions, pero no esta de mas imprimir el resultado para verificar visualmente que se esta obteniendo lo esperado */
+    /*
+     * NOTE: En las pruebas de unitarias o de integracion se menciona que se debe
+     * comprobar el resultado con el Assertions, pero no esta de mas imprimir el
+     * resultado para verificar visualmente que se esta obteniendo lo esperado
+     */
 
     @Autowired
     private CompraRepo compraRepo;
@@ -65,7 +69,7 @@ public class CompraTest {
         cuponCliente.setCodigo(6);
 
         CuponCliente cuponClienteSave = cuponClienteRepo.save(cuponCliente);
-        
+
         // SECTION: Se construye la compra
         Compra compra = new Compra(pago, cuponClienteSave, cliente, funcion);
 
@@ -130,7 +134,7 @@ public class CompraTest {
         Assertions.assertTrue(buscado.isPresent());
 
         System.out.println("\n" + "Registro obtenido:");
-        
+
         System.out.println(buscado.orElse(null));
     }
 
@@ -183,7 +187,7 @@ public class CompraTest {
 
     @Test
     @Sql("classpath:dataset.sql")
-    public void obtenerComprasCedula(){
+    public void obtenerComprasCedula() {
 
         List<Compra> compras = compraRepo.obtenerComprasCedula(1008000022);
 
@@ -198,7 +202,7 @@ public class CompraTest {
 
     @Test
     @Sql("classpath:dataset.sql")
-    public void obtenerComprasCorreo(){
+    public void obtenerComprasCorreo() {
 
         List<Compra> compras = compraRepo.obtenerComprasCorreo("juan@outlook.com");
 
@@ -213,24 +217,38 @@ public class CompraTest {
 
     @Test
     @Sql("classpath:dataset.sql")
+    public void obtenerComprasClientes() {
+
+        List<Object[]> comprasClientes = compraRepo.obtenerComprasClientes();
+
+        System.out.println("Resultado: \n");
+
+        for (Object[] compraCliente : comprasClientes) {
+            System.out.println("Compra: " + compraCliente[0] + "\n" + "Cliente: " + compraCliente[1]);
+        }
+    }
+
+    @Test
+    @Sql("classpath:dataset.sql")
     public void obtenerInformacionCompra() {
 
-    List<DetalleCompraDTO> detallesCompra = compraRepo.obtenerInformacionCompra(1008000022);
+        List<DetalleCompraDTO> detallesCompra = compraRepo.obtenerInformacionCompra(1008000022);
 
-    // Verifica que los detalles de la c sean correctos
-    Assertions.assertFalse(detallesCompra.isEmpty(), "No se encontraron detalles de la c");
+        // Verifica que los detalles de la c sean correctos
+        Assertions.assertFalse(detallesCompra.isEmpty(), "No se encontraron detalles de la c");
 
-    System.out.println("Resultado: \n");
-    
-    for (DetalleCompraDTO detalle : detallesCompra) {
-        System.out.println(detalle);
+        System.out.println("Resultado: \n");
+
+        for (DetalleCompraDTO detalle : detallesCompra) {
+            System.out.println(detalle);
+        }
     }
-}
 
     @Test
     @Sql("classpath:dataset.sql")
     public void obtenerPreciosEntradaCompra() {
-        Integer codigoCompra = 1; // Reemplaza con un código de c válido para tu dataset
+
+        Integer codigoCompra = 1; // Reemplaza con un código de compra válido para tu dataset
 
         List<Double> preciosEntrada = compraRepo.obtenerPreciosEntradaCompra(codigoCompra);
 
@@ -244,6 +262,7 @@ public class CompraTest {
     @Test
     @Sql("classpath:dataset.sql")
     public void obtenerPreciosConfiteriaCompra() {
+        
         Integer codigoCompra = 1; // Reemplaza con un código de c válido para tu dataset
 
         List<Double> preciosConfiteria = compraRepo.obtenerPreciosConfiteriaCompra(codigoCompra);
@@ -253,5 +272,33 @@ public class CompraTest {
         System.out.println("Resultado: \n");
 
         System.out.println(preciosConfiteria);
+    }
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void obtenerTotalCompras() {
+
+        Double totalCompras = compraRepo.obtenerTotalCompras(1008000022);
+
+        Assertions.assertEquals(89000.0, totalCompras);
+
+        System.out.println("Total del historico de compras que tiene el cliente: \n");
+
+        System.out.println(totalCompras);
+    }
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void obtenerCompraCostosa() {
+
+        List<Object[]> comprasCostosas = compraRepo.obtenerCompraCostosa();
+
+        Assertions.assertNotNull(comprasCostosas);
+
+        System.out.println("Resultado: \n");
+
+        for (Object[] mayorCompra : comprasCostosas) {
+            System.out.println("Correo: " + mayorCompra[0] + "\n" + "Compra: " + mayorCompra[1]);
+        }
     }
 }

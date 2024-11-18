@@ -139,4 +139,19 @@ public class CiudadTest {
             System.out.println(c);
         }
     }
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void contarTeatrosCiudad() {
+
+        List<Object[]> ciudades = ciudadRepo.contarTeatrosCiudad();
+
+        Assertions.assertNotNull(ciudades);
+
+        System.out.println("\n" + "Cantidad de teatros en cada ciudad:");
+
+        for (Object[] c : ciudades) {
+            System.out.println(c[0] + " - " + c[1]);
+        }
+    }
 }

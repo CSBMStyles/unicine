@@ -1,6 +1,6 @@
 package com.unicine.repo;
 
-import com.unicine.dto.SillaOcupadaDTO;
+import com.unicine.dto.DetalleSillaDTO;
 import com.unicine.entidades.Entrada;
 
 import java.util.List;
@@ -29,6 +29,6 @@ public interface EntradaRepo extends JpaRepository<Entrada, Integer> {
      * @param atributos: codigo de la funcion
      * @return codigo, fila y columna de las entradas
      */
-    @Query("select new " + direccion + ".SillaOcupadaDTO(e.codigo, e.fila, e.columna ) from Compra comp join comp.entradas e join comp.funcion f where f.codigo = :codigoFuncion")
-    List<SillaOcupadaDTO> obtenerSillasOcupadas(Integer codigoFuncion);
+    @Query("select new " + direccion + ".DetalleSillaDTO(e.codigo, e.fila, e.columna ) from Compra comp join comp.entradas e join comp.funcion f where f.codigo = :codigoFuncion")
+    List<DetalleSillaDTO> obtenerSillasOcupadas(Integer codigoFuncion);
 }

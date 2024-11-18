@@ -149,4 +149,21 @@ public class TeatroTest {
             System.out.println(t);
         }
     }
+
+    // SECTION: Consultas personalizadas para la base de datos
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void listarTeatrosCiudad() {
+
+        List<Teatro> teatros = teatroRepo.listarTeatrosCiudad("Armenia");
+
+        Assertions.assertEquals(1, teatros.size());
+
+        System.out.println("\n" + "Listado de teatros por ciudad:");
+
+        for (Teatro t : teatros) {
+            System.out.println(t);
+        }
+    }
 }

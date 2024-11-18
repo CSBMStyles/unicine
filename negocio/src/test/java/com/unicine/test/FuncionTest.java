@@ -8,6 +8,9 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.jdbc.Sql;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -159,6 +162,85 @@ public class FuncionTest {
         }
     }
 
+    // SECTION: Consultas personalizadas para la base de datos
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void obtenerFuncionesHorarioSala() {
+
+        Horario horario = horarioRepo.findById(1).orElse(null);
+
+        List<Funcion> funciones = funcionRepo.obtenerFuncionesHorarioSala(6, horario);
+
+        Assertions.assertEquals(1, funciones.size());
+
+        System.out.println("\n" + "Listado de funciones por sala y horario:");
+
+        for (Funcion f : funciones) {
+            System.out.println(f);
+        }
+    }
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void listarFuncionesSala() {
+
+        List<Funcion> funciones = funcionRepo.listarFuncionesSala(1);
+
+        Assertions.assertEquals(1, funciones.size());
+
+        System.out.println("\n" + "Listado de funciones por sala:");
+
+        for (Funcion f : funciones) {
+            System.out.println(f);
+        }
+    }
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void listarFuncionesTeatro() {
+
+        List<Funcion> funciones = funcionRepo.listarFuncionesTeatro(1);
+
+        Assertions.assertEquals(1, funciones.size());
+
+        System.out.println("\n" + "Listado de funciones por teatro:");
+
+        for (Funcion f : funciones) {
+            System.out.println(f);
+        }
+    }
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void listarFuncionesCiudad() {
+
+        List<Funcion> funciones = funcionRepo.listarFuncionesCiudad(2);
+
+        Assertions.assertEquals(2, funciones.size());
+
+        System.out.println("\n" + "Listado de funciones por ciudad:");
+
+        for (Funcion f : funciones) {
+            System.out.println(f);
+        }
+    }
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void verificarDisponibilidad() {
+
+        List<Funcion> funciones = funcionRepo.verificarDisponibilidad(1);
+
+        Assertions.assertFalse(funciones.isEmpty());
+
+        System.out.println("\n" + "Funciones disponibles:");
+
+        for (Funcion f : funciones) {
+            System.out.println(f);
+        }
+    }
+
     @Test
     @Sql("classpath:dataset.sql")
     public void listarDetallesFunciones() {
@@ -166,6 +248,43 @@ public class FuncionTest {
 
         Assertions.assertEquals(1, detalle.size());
 
+        System.out.println("\n" + "Listado de detalles de funciones:");
+
         detalle.forEach(System.out::println);
-    } 
+    }
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void funcionesComprasVaciasTeatro() {
+
+        List<Funcion> funciones = funcionRepo.funcionesComprasVaciasTeatro(1);
+
+        Assertions.assertEquals(1, funciones.size());
+
+        System.out.println("\n" + "Listado de funciones con compras vacias de un teatro:");
+
+        for (Funcion f : funciones) {
+            System.out.println(f);
+        }
+    }
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void listarFuncionesTeatroFecha() {
+
+        LocalDate fechaRecibida = LocalDate.of(2024, 12, 15);
+
+        LocalDateTime fechaFin = fechaRecibida.atStartOfDay().plusDays(1);
+
+        List<Funcion> funciones = funcionRepo.listarFuncionesTeatroFecha(1, LocalDateTime.now(), fechaFin);
+
+        Assertions.assertEquals(1, funciones.size());
+
+        System.out.println("\n" + "Listado de funciones por teatro y fecha:");
+
+        for (Funcion f : funciones) {
+            System.out.println(f);
+        }
+    }
+
 }

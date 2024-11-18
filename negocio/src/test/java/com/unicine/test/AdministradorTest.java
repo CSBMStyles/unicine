@@ -137,4 +137,31 @@ public class AdministradorTest {
         }
     }
 
+    // SECTION: Consultas personalizadas para la base de datos
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void findByCorreo() {
+            
+        Optional<Administrador> buscado = administradorRepo.findByCorreo("cristianbarrera100@gmail.com");
+
+        Assertions.assertTrue(buscado.isPresent());
+
+        System.out.println("\n" + "Registro obtenido por correo:");
+
+        System.out.println(buscado.orElse(null));
+    }
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void comprobarAutenticacion() {
+            
+        Optional<Administrador> buscado = administradorRepo.comprobarAutenticacion("cristianbarrera100@gmail.com", "fe5i/PFsjWU0/+4VjImKacbXbnsiQ07+L49lGB5bq4fQ5u5lMiNXljo0s+oSV73N");
+
+        Assertions.assertTrue(buscado.isPresent());
+
+        System.out.println("\n" + "Registro autenticado:");
+        
+        System.out.println(buscado.orElse(null));
+    }
 }

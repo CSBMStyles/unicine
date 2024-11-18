@@ -1,6 +1,5 @@
 package com.unicine.repo;
 
-import com.unicine.entidades.Administrador;
 import com.unicine.entidades.AdministradorTeatro;
 
 import java.util.Optional;
@@ -26,5 +25,5 @@ public interface AdministradorTeatroRepo extends JpaRepository<AdministradorTeat
      * @return administrador de teatro
      */
     @Query("select a from AdministradorTeatro a where a.correo = :correo and a.password = :password")
-    Administrador comprobarAutenticacion(String correo, String password);
+    Optional<AdministradorTeatro> comprobarAutenticacion(String correo, String password);
 }

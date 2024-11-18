@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.jdbc.Sql;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.unicine.dto.DetallePeliculaHorarioDTO;
 import com.unicine.entidades.EstadoPelicula;
 import com.unicine.entidades.GeneroPelicula;
 import com.unicine.entidades.Pelicula;
@@ -159,5 +161,138 @@ public class PeliculaTest {
         for (Pelicula p : peliculas) {
             System.out.println(p);
         }
+    }
+
+    // SECTION: Consultas personalizadas para la base de datos
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void obtenerPeliculaNombre() {
+
+        Optional<Pelicula> buscado = peliculaRepo.obtenerPeliculaNombre("Encanto");
+
+        Assertions.assertTrue(buscado.isPresent());
+
+        System.out.println("\n" + "Registro obtenido por nombre:");
+
+        System.out.println(buscado.orElse(null));
+    }
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void obtenerPeliculaFuncion() {
+
+        Optional<Pelicula> buscado = peliculaRepo.obtenerPeliculaFuncion(1);
+
+        Assertions.assertTrue(buscado.isPresent());
+
+        System.out.println("\n" + "Registro obtenido por funcion:");
+
+        System.out.println(buscado.orElse(null));
+    }
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void buscarPeliculasFuncion() {
+
+        List<Object[]> peliculas = peliculaRepo.buscarPeliculasFuncion("Encan");
+
+        Assertions.assertEquals(1, peliculas.size());
+
+        System.out.println("\n" + "Listado de registros obtenidos por funcion:");
+
+        peliculas.forEach(o -> {
+            System.out.println("Pelicula: " + o[0] + "\n" + "Funcion: " + o[1]);
+        });
+    }
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void obtenerPeliculaFecha() {
+
+        List<Object[]> peliculas = peliculaRepo.obtenerPeliculaFecha(1, LocalDate.of(2024, 12, 14));
+
+        Assertions.assertEquals(1, peliculas.size());
+
+        System.out.println("\n" + "Listado de registros obtenidos por fecha:");
+
+        peliculas.forEach(o -> {
+            System.out.println("Pelicula: " + o[0] + "\n" + "Funcion: " + o[1] + "\n" + "Horario: " + o[2]);
+        });
+    }
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void listarPeliculasCuidadEstado() {
+
+        List<Pelicula> peliculas = peliculaRepo.listarPeliculasCuidadEstado(1, EstadoPelicula.EN_CARTELERA);
+
+        Assertions.assertEquals(1, peliculas.size());
+
+        System.out.println("\n" + "Listado de registros obtenidos por ciudad y estado:");
+
+        for (Pelicula p : peliculas) {
+            System.out.println(p);
+        }
+    }
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void listarPeliculasEstado() {
+
+        List<Pelicula> peliculas = peliculaRepo.listarPeliculasEstado(EstadoPelicula.EN_CARTELERA);
+
+        Assertions.assertEquals(3, peliculas.size());
+
+        System.out.println("\n" + "Listado de registros obtenidos por estado:");
+
+        for (Pelicula p : peliculas) {
+            System.out.println(p);
+        }
+    }
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void listarPeliculasNombreCuidad() {
+
+        List<Pelicula> peliculas = peliculaRepo.listarPeliculasNombreCuidad("o", 2);
+
+        Assertions.assertEquals(2, peliculas.size());
+
+        System.out.println("\n" + "Listado de registros obtenidos por nombre y ciudad:");
+
+        for (Pelicula p : peliculas) {
+            System.out.println(p);
+        }
+    }
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void peliculaHorariosSalas() {
+
+        List<DetallePeliculaHorarioDTO> peliculas = peliculaRepo.peliculaHorariosSalas(1, 2);
+
+        Assertions.assertEquals(1, peliculas.size());
+
+        System.out.println("\n" + "Listado de registros obtenidos por pelicula, horario y sala:");
+
+        for (DetallePeliculaHorarioDTO p : peliculas) {
+            System.out.println(p);
+        }
+    }
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void peliculaTaquilleraCiudad() {
+
+        List<Object[]> peliculas = peliculaRepo.peliculaTaquilleraCiudad(2);
+
+        Assertions.assertEquals(2, peliculas.size());
+
+        System.out.println("\n" + "Listado de registros obtenidos:");
+
+        peliculas.forEach(o -> {
+            System.out.println("Pelicula: " + o[0] + "\n" + "Cantidad de compras: " + o[1]);
+        });
     }
 }

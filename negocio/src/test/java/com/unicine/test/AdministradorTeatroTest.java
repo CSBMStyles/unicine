@@ -135,4 +135,33 @@ public class AdministradorTeatroTest {
             System.out.println(admin);
         }
     }
+
+    // SECTION: Colsultas personalizadas
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void findByCorreo() {
+            
+        Optional<AdministradorTeatro> buscado = administradorTeatroRepo.findByCorreo("jhona.belloc@uqvirtual.edu.co");
+
+        Assertions.assertTrue(buscado.isPresent());
+
+        System.out.println("\n" + "Registro obtenido por correo:");
+
+        System.out.println(buscado.orElse(null));
+    }
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void comprobarAutenticacion() {
+            
+        Optional<AdministradorTeatro> buscado = administradorTeatroRepo.comprobarAutenticacion("jhona.belloc@uqvirtual.edu.co", "fe5i/PFsjWU0/+4VjImKacbXbnsiQ07+L49lGB5bq4fQ5u5lMiNXljo0s+oSV73N");
+
+        Assertions.assertTrue(buscado.isPresent());
+
+        System.out.println("\n" + "Registro autenticado:");
+        
+        System.out.println(buscado.orElse(null));
+    }
+
 }

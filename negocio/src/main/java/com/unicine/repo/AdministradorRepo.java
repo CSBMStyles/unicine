@@ -25,5 +25,5 @@ public interface AdministradorRepo extends JpaRepository<Administrador, Integer>
      * @return administrador
      */
     @Query("select a from Administrador a where a.correo = :correo and a.password = :password")
-    Administrador comprobarAutenticacion(String correo, String password);
+    Optional<Administrador> comprobarAutenticacion(String correo, String password);
 }

@@ -1,4 +1,4 @@
-package com.unicine.test;
+package com.unicine.test.repo;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

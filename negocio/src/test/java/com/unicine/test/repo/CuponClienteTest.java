@@ -1,4 +1,4 @@
-package com.unicine.test;
+package com.unicine.test.repo;
 
 import java.util.List;
 import java.util.Optional;

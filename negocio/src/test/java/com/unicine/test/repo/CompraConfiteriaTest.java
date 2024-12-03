@@ -1,4 +1,4 @@
-package com.unicine.test;
+package com.unicine.test.repo;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,30 +12,44 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.jdbc.Sql;
 
-import com.unicine.entidades.DistribucionSilla;
-import com.unicine.repo.DistribucionSillaRepo;
+import com.unicine.entidades.Compra;
+import com.unicine.entidades.CompraConfiteria;
+import com.unicine.entidades.Confiteria;
+import com.unicine.repo.CompraConfiteriaRepo;
+import com.unicine.repo.CompraRepo;
+import com.unicine.repo.ConfiteriaRepo;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class DistribucionSillaTest {
+public class CompraConfiteriaTest {
 
     /* NOTE: En las pruebas de unitarias o de integracion se menciona que se debe comprobar el resultado con el Assertions, pero no esta de mas imprimir el resultado para verificar visualmente que se esta obteniendo lo esperado */
 
     @Autowired
-    private DistribucionSillaRepo distribucionSillaRepo;
+    private CompraConfiteriaRepo compraConfiteriaRepo;
+
+    @Autowired
+    private CompraRepo compraRepo;
+
+    @Autowired
+    private ConfiteriaRepo confiteriaRepo;
+
+    // SECTION: Consultas basicas para la base de datos
 
     @Test
     @Sql("classpath:dataset.sql")
     public void registrar() {
 
-        String direccion = "com/unicine/test/resources/esquema-dos-dimensiones.json";
+        Compra compra = compraRepo.findById(1).orElse(null);
 
-        DistribucionSilla distribucionSilla = new DistribucionSilla(direccion, 60, 10, 6);
-        distribucionSilla.setCodigo(6);
+        Confiteria confiteria = confiteriaRepo.findById(1).orElse(null);
 
-        DistribucionSilla guardado = distribucionSillaRepo.save(distribucionSilla);
+        CompraConfiteria compraConfiteria = new CompraConfiteria(16000.00, 2, compra, confiteria);
+        compraConfiteria.setCodigo(7);
 
-        Assertions.assertEquals(direccion, guardado.getEsquema());
+        CompraConfiteria guardado = compraConfiteriaRepo.save(compraConfiteria);
+
+        Assertions.assertNotNull(guardado);
 
         System.out.println("\n" + "Registro guardado:");
         
@@ -46,15 +60,15 @@ public class DistribucionSillaTest {
     @Sql("classpath:dataset.sql")
     public void actualizar() {
 
-        DistribucionSilla guardado = distribucionSillaRepo.findById(1).orElse(null);
+        CompraConfiteria guardado = compraConfiteriaRepo.findById(1).orElse(null);
 
         System.out.println(guardado);
 
-        guardado.setFilas(14);
+        guardado.setUnidades(1);
 
-        DistribucionSilla actualizado = distribucionSillaRepo.save(guardado);
+        CompraConfiteria actualizado = compraConfiteriaRepo.save(guardado);
 
-        Assertions.assertEquals(14, actualizado.getFilas());
+        Assertions.assertEquals(1, actualizado.getUnidades());
 
         System.out.println("\n" + "Registro actualizado:");
 
@@ -65,13 +79,13 @@ public class DistribucionSillaTest {
     @Sql("classpath:dataset.sql")
     public void eliminar() {
 
-        DistribucionSilla buscado = distribucionSillaRepo.findById(1).orElse(null);
+        CompraConfiteria buscado = compraConfiteriaRepo.findById(1).orElse(null);
 
         System.out.println(buscado);
 
-        distribucionSillaRepo.delete(buscado);
+        compraConfiteriaRepo.delete(buscado);
 
-        DistribucionSilla verificacion = distribucionSillaRepo.findById(1).orElse(null);
+        CompraConfiteria verificacion = compraConfiteriaRepo.findById(1).orElse(null);
 
         Assertions.assertNull(verificacion);
 
@@ -84,7 +98,7 @@ public class DistribucionSillaTest {
     @Sql("classpath:dataset.sql")
     public void obtener() {
 
-        Optional<DistribucionSilla> buscado = distribucionSillaRepo.findById(1);
+        Optional<CompraConfiteria> buscado = compraConfiteriaRepo.findById(1);
 
         Assertions.assertTrue(buscado.isPresent());
 
@@ -97,13 +111,13 @@ public class DistribucionSillaTest {
     @Sql("classpath:dataset.sql")
     public void listar() {
 
-        List<DistribucionSilla> distribucionSillas = distribucionSillaRepo.findAll();
+        List<CompraConfiteria> comprasConfiterias = compraConfiteriaRepo.findAll();
 
-        Assertions.assertEquals(5, distribucionSillas.size());
+        Assertions.assertEquals(6, comprasConfiterias.size());
 
         System.out.println("\n" + "Listado de registros:");
 
-        for (DistribucionSilla c : distribucionSillas) {
+        for (CompraConfiteria c : comprasConfiterias) {
             System.out.println(c);
         }
     }
@@ -112,13 +126,13 @@ public class DistribucionSillaTest {
     @Sql("classpath:dataset.sql")
     public void listarPaginado() {
 
-        List<DistribucionSilla> distribucionSillas = distribucionSillaRepo.findAll(PageRequest.of(0, 3)).toList();
+        List<CompraConfiteria> comprasConfiterias = compraConfiteriaRepo.findAll(PageRequest.of(0, 3)).toList();
 
-        Assertions.assertEquals(3, distribucionSillas.size());
+        Assertions.assertEquals(3, comprasConfiterias.size());
 
         System.out.println("\n" + "Listado de registros paginado:");
 
-        for (DistribucionSilla c : distribucionSillas) {
+        for (CompraConfiteria c : comprasConfiterias) {
             System.out.println(c);
         }
     }
@@ -127,27 +141,14 @@ public class DistribucionSillaTest {
     @Sql("classpath:dataset.sql")
     public void listarOrdenado() {
 
-        List<DistribucionSilla> distribucionSillas = distribucionSillaRepo.findAll(Sort.by("totalSillas").ascending());
+        List<CompraConfiteria> comprasConfiterias = compraConfiteriaRepo.findAll(Sort.by("codigo"));
 
-        Assertions.assertEquals(5, distribucionSillas.size());
+        Assertions.assertEquals(6, comprasConfiterias.size());
 
         System.out.println("\n" + "Listado de registros ordenado:");
 
-        for (DistribucionSilla c : distribucionSillas) {
+        for (CompraConfiteria c : comprasConfiterias) {
             System.out.println(c);
         }
-    }
-
-    @Test
-    @Sql("classpath:dataset.sql")
-    public void obtenerDistribucionFuncion() {
-
-        Optional<DistribucionSilla> buscado = distribucionSillaRepo.obtenerDistribucionFuncion(1);
-
-        Assertions.assertTrue(buscado.isPresent());
-
-        System.out.println("\n" + "Registro obtenido:");
-
-        System.out.println(buscado.orElse(null));
     }
 }

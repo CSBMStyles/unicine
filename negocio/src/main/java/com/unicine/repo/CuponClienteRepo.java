@@ -13,6 +13,8 @@ import org.springframework.stereotype.Repository;
 public interface CuponClienteRepo extends JpaRepository<CuponCliente, Integer> {
 // NOTE: En la creacion del repositorio se extiende de jpa repository, se le pasa la entidad y el tipo de dato de la llave primaria
 
+    // SECTION: Relacion propia
+
     /**
      * Consulta para obtener un cupon de un cliente
      * @param atributos: codigo del cupon, cedula del cliente
@@ -29,8 +31,10 @@ public interface CuponClienteRepo extends JpaRepository<CuponCliente, Integer> {
     @Query("select c from CuponCliente c where c.cliente.cedula = :cedula")
     List<CuponCliente> listarCuponesCliente(Integer cedula);
 
+    // SECTION: Relacion con compra
+
     /**
-     * - Consulta para contar los cupones redimidos por cliente
+     * #️⃣ Consulta para contar los cupones redimidos por cliente
      * @return lista de cupones redimidos por cliente
      */
     @Query("select c.cliente.cedula, c.cliente.nombre, count(c) from Compra c where c.cuponCliente is not null group by c.cliente.cedula")

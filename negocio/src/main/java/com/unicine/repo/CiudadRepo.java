@@ -12,8 +12,10 @@ import org.springframework.stereotype.Repository;
 public interface CiudadRepo extends JpaRepository<Ciudad, Integer> {
 // NOTE: En la creacion del repositorio se extiende de jpa repository, se le pasa la entidad y el tipo de dato de la llave primaria
 
+    // SECTION: Relacion con teatro
+
     /**
-     * - Consulta para contar el número de teatros que hay por cada ciudad.
+     * #️⃣ Consulta para contar el número de teatros que hay por cada ciudad.
      * @return ciudad, conteo
      */
     @Query("select c.nombre, count(t) from Ciudad c join c.teatros t group by c.nombre")

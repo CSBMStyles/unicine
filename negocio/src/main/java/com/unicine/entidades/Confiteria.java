@@ -2,7 +2,10 @@ package com.unicine.entidades;
 
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.Size;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -35,10 +38,13 @@ public class Confiteria implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer codigo;
 
+    @NotBlank(message = "El nombre no puede estar en blanco")
+    @Size(max = 100, message = "El nombre no puede tener más de cien caracteres")
     @Column(nullable = false, length = 100)
     private String nombre;
 
-    @Positive
+    @NotNull(message = "El precio no puede estar vacío")
+    @PositiveOrZero(message = "El precio debe ser un número positivo o cero")
     @Column(nullable = false)
     private Double precio;
 

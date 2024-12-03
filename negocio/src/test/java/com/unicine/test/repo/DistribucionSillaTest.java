@@ -1,8 +1,6 @@
-package com.unicine.test;
+package com.unicine.test.repo;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
@@ -14,32 +12,30 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.jdbc.Sql;
 
-import com.unicine.entidades.Confiteria;
-import com.unicine.repo.ConfiteriaRepo;
+import com.unicine.entidades.DistribucionSilla;
+import com.unicine.repo.DistribucionSillaRepo;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class ConfiteriaTest {
+public class DistribucionSillaTest {
 
     /* NOTE: En las pruebas de unitarias o de integracion se menciona que se debe comprobar el resultado con el Assertions, pero no esta de mas imprimir el resultado para verificar visualmente que se esta obteniendo lo esperado */
 
     @Autowired
-    private ConfiteriaRepo confiteriaRepo;
+    private DistribucionSillaRepo distribucionSillaRepo;
 
     @Test
     @Sql("classpath:dataset.sql")
     public void registrar() {
 
-        // Creamos un mapa de imágenes
-        Map<String, String> imagenes = new HashMap<>();
-        imagenes.put("http://example.com/imagen-1.jpg", "perfil");
+        String direccion = "com/unicine/test/resources/esquema-dos-dimensiones.json";
 
-        Confiteria confiteria = new Confiteria("Papas Fritas", 5000.00, imagenes);
-        confiteria.setCodigo(6);
+        DistribucionSilla distribucionSilla = new DistribucionSilla(direccion, 60, 10, 6);
+        distribucionSilla.setCodigo(6);
 
-        Confiteria guardado = confiteriaRepo.save(confiteria);
+        DistribucionSilla guardado = distribucionSillaRepo.save(distribucionSilla);
 
-        Assertions.assertEquals("Papas Fritas", guardado.getNombre());
+        Assertions.assertEquals(direccion, guardado.getEsquema());
 
         System.out.println("\n" + "Registro guardado:");
         
@@ -50,15 +46,15 @@ public class ConfiteriaTest {
     @Sql("classpath:dataset.sql")
     public void actualizar() {
 
-        Confiteria guardado = confiteriaRepo.findById(1).orElse(null);
+        DistribucionSilla guardado = distribucionSillaRepo.findById(1).orElse(null);
 
         System.out.println(guardado);
 
-        guardado.setNombre("Combo para Adultos");
+        guardado.setFilas(14);
 
-        Confiteria actualizado = confiteriaRepo.save(guardado);
+        DistribucionSilla actualizado = distribucionSillaRepo.save(guardado);
 
-        Assertions.assertEquals("Combo para Adultos", actualizado.getNombre());
+        Assertions.assertEquals(14, actualizado.getFilas());
 
         System.out.println("\n" + "Registro actualizado:");
 
@@ -69,13 +65,13 @@ public class ConfiteriaTest {
     @Sql("classpath:dataset.sql")
     public void eliminar() {
 
-        Confiteria buscado = confiteriaRepo.findById(1).orElse(null);
+        DistribucionSilla buscado = distribucionSillaRepo.findById(1).orElse(null);
 
         System.out.println(buscado);
 
-        confiteriaRepo.delete(buscado);
+        distribucionSillaRepo.delete(buscado);
 
-        Confiteria verificacion = confiteriaRepo.findById(1).orElse(null);
+        DistribucionSilla verificacion = distribucionSillaRepo.findById(1).orElse(null);
 
         Assertions.assertNull(verificacion);
 
@@ -88,7 +84,7 @@ public class ConfiteriaTest {
     @Sql("classpath:dataset.sql")
     public void obtener() {
 
-        Optional<Confiteria> buscado = confiteriaRepo.findById(1);
+        Optional<DistribucionSilla> buscado = distribucionSillaRepo.findById(1);
 
         Assertions.assertTrue(buscado.isPresent());
 
@@ -101,13 +97,13 @@ public class ConfiteriaTest {
     @Sql("classpath:dataset.sql")
     public void listar() {
 
-        List<Confiteria> confiterias = confiteriaRepo.findAll();
+        List<DistribucionSilla> distribucionSillas = distribucionSillaRepo.findAll();
 
-        Assertions.assertEquals(5, confiterias.size());
+        Assertions.assertEquals(5, distribucionSillas.size());
 
         System.out.println("\n" + "Listado de registros:");
 
-        for (Confiteria c : confiterias) {
+        for (DistribucionSilla c : distribucionSillas) {
             System.out.println(c);
         }
     }
@@ -116,13 +112,13 @@ public class ConfiteriaTest {
     @Sql("classpath:dataset.sql")
     public void listarPaginado() {
 
-        List<Confiteria> confiterias = confiteriaRepo.findAll(PageRequest.of(0, 3)).toList();
+        List<DistribucionSilla> distribucionSillas = distribucionSillaRepo.findAll(PageRequest.of(0, 3)).toList();
 
-        Assertions.assertEquals(3, confiterias.size());
+        Assertions.assertEquals(3, distribucionSillas.size());
 
         System.out.println("\n" + "Listado de registros paginado:");
 
-        for (Confiteria c : confiterias) {
+        for (DistribucionSilla c : distribucionSillas) {
             System.out.println(c);
         }
     }
@@ -131,14 +127,27 @@ public class ConfiteriaTest {
     @Sql("classpath:dataset.sql")
     public void listarOrdenado() {
 
-        List<Confiteria> confiterias = confiteriaRepo.findAll(Sort.by("nombre"));
+        List<DistribucionSilla> distribucionSillas = distribucionSillaRepo.findAll(Sort.by("totalSillas").ascending());
 
-        Assertions.assertEquals(5, confiterias.size());
+        Assertions.assertEquals(5, distribucionSillas.size());
 
         System.out.println("\n" + "Listado de registros ordenado:");
 
-        for (Confiteria c : confiterias) {
+        for (DistribucionSilla c : distribucionSillas) {
             System.out.println(c);
         }
+    }
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void obtenerDistribucionFuncion() {
+
+        Optional<DistribucionSilla> buscado = distribucionSillaRepo.obtenerDistribucionFuncion(1);
+
+        Assertions.assertTrue(buscado.isPresent());
+
+        System.out.println("\n" + "Registro obtenido:");
+
+        System.out.println(buscado.orElse(null));
     }
 }

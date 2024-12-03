@@ -2,6 +2,8 @@ package com.unicine.entidades;
 
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.NotNull;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -34,9 +36,13 @@ public class Horario implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer codigo;
 
+    @NotNull(message = "La fecha de inicio no puede estar vacía")
+    @Future(message = "La fecha de inicio debe ser en el futuro")
     @Column(nullable = false)
     private LocalDateTime fechaInicio;
 
+    @NotNull(message = "La fecha de fin no puede estar vacía")
+    @Future(message = "La fecha de fin debe ser en el futuro")
     @Column(nullable = false)
     private LocalDateTime fechaFin;
 

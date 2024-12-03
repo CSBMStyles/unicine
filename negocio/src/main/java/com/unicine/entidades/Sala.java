@@ -3,6 +3,8 @@ package com.unicine.entidades;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -35,9 +37,12 @@ public class Sala implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer codigo;
 
+    @NotBlank(message = "El nombre no puede estar vacío")
+    @Size(max = 100, message = "El nombre no puede tener más de cien caracteres")
     @Column(nullable = false, length = 100)
     private String nombre;
 
+    @NotBlank(message = "El tipo de sala no puede estar vacío")
     @Column (nullable = false, length = 50)
     @Enumerated(EnumType.STRING)
     private TipoSala tipoSala;

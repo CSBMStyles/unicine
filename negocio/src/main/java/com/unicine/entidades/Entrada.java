@@ -2,7 +2,9 @@ package com.unicine.entidades;
 
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,13 +33,18 @@ public class Entrada implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer codigo;
 
-    @Positive
+    @NotNull(message = "El precio no puede estar vacío")
+    @PositiveOrZero(message = "El precio debe ser un número positivo")
     @Column(nullable = false)
     private Double precio;
 
+    @NotNull(message = "La fila no puede estar vacía")
+    @Positive(message = "La fila debe ser un número positivo")
     @Column(nullable = false)
     private Integer fila;
 
+    @NotNull(message = "La columna no puede estar vacía")
+    @Positive(message = "La columna debe ser un número positivo")
     @Column(nullable = false)
     private Integer columna;
 

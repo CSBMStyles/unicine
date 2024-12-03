@@ -1,4 +1,4 @@
-package com.unicine.test;
+package com.unicine.test.repo;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -24,6 +24,7 @@ public class ClienteTest {
 
     /* NOTE: En las pruebas de unitarias o de integracion se menciona que se debe comprobar el resultado con el Assertions, pero no esta de mas imprimir el resultado para verificar visualmente que se esta obteniendo lo esperado */
 
+    // NOTE: El autowired se utiliza para inyectar dependencias, donde se instancia por si solo la clase que se necesita
     @Autowired
     private ClienteRepo clienteRepo;
 

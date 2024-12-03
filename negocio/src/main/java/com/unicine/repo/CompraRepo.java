@@ -16,6 +16,8 @@ public interface CompraRepo extends JpaRepository<Compra, Integer> {
 
     // NOTE: En el caso de necesitar conexiones para hacer la consulta como esta donde necesatamos obtener la compras del cliente se puede hacer con join se puede usar en lugar del in, ambos cumplen la misma función, es así como la cláusula anterior
 
+    // SECTION: Relacion con cliente / compra
+
     /**
      * Consulta para obtener las compras de un cliente
      * @param atributo: cedula del cliente
@@ -44,12 +46,14 @@ public interface CompraRepo extends JpaRepository<Compra, Integer> {
     List<Object[]> obtenerComprasClientes();
 
     /**
-     * - Consulta para obtener la información de las compras de un cliente
+     * #️⃣ Consulta para obtener la información de las compras de un cliente
      * @param atributo: cedula del cliente
      * @return lista del detalle de la compra: valor total, fecha de compra, codigo de la funcion, total de las entradas, total de la confiteria
      */
     @Query("select new " + direccion + ".DetalleCompraDTO( c.valorTotal, c.fechaCompra, c.funcion.codigo, (select coalesce(sum(e.precio), 0) from Entrada e where e.compra.codigo = c.codigo), (select coalesce(sum(conf.precio * conf.unidades), 0) from CompraConfiteria conf where conf.compra.codigo = c.codigo) ) from Compra c where c.cliente.cedula = :cedulaCliente")
     List<DetalleCompraDTO> obtenerInformacionCompra(Integer cedulaCliente);
+
+    // SECTION: Relacion con entrada
 
     /**
      * Consulta para obtener los precios de las entradas de una compra
@@ -59,6 +63,8 @@ public interface CompraRepo extends JpaRepository<Compra, Integer> {
     @Query("select e.precio from Entrada e where e.compra.codigo = :codigoCompra")
     List<Double> obtenerPreciosEntradaCompra(Integer codigoCompra);
 
+    // SECTION: Relacion con confiteria
+
     /**
      * Consulta para obtener los precios de la confiteria de una compra
      * @param atributo: codigo de la compra
@@ -67,8 +73,10 @@ public interface CompraRepo extends JpaRepository<Compra, Integer> {
     @Query("select conf.precio * conf.unidades from CompraConfiteria conf where conf.compra.codigo = :codigoCompra")
     List<Double> obtenerPreciosConfiteriaCompra(Integer codigoCompra);
 
+    // SECTION: Relacion propia
+
     /**
-     * - Consulta para obtener el valor total de las compras de un cliente
+     * #️⃣ Consulta para obtener el valor total de las compras de un cliente
      * @param atributo: cedula del cliente
      * @return valor total de las compras
      */
@@ -76,7 +84,7 @@ public interface CompraRepo extends JpaRepository<Compra, Integer> {
     Double obtenerTotalCompras(Integer cedula);
 
     /**
-     * - Consulta para obtener la compra mas costosa de todods los clientes
+     * #️⃣ Consulta para obtener la compra mas costosa de todods los clientes
      * @return lista de compras mas costosas
      */
     @Query("select cl.correo, c from Cliente cl join cl.compras c where c.valorTotal = (select max(c.valorTotal) from Compra c)")

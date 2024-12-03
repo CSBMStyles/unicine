@@ -7,6 +7,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -32,7 +34,9 @@ public class Ciudad implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer codigo;
 
-    @Column(nullable = false, unique = true, length = 100)
+    @NotBlank(message = "El nombre no puede estar en blanco")
+    @Size(max = 100, message = "El nombre no puede tener más de cien caracteres")
+    @Column(nullable = false, length = 100)
     private String nombre;
 
     // SECTION: Relaciones

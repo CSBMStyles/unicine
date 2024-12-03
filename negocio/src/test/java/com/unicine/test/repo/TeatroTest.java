@@ -1,4 +1,4 @@
-package com.unicine.test;
+package com.unicine.test.repo;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,41 +12,40 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.jdbc.Sql;
 
-import com.unicine.entidades.Cliente;
-import com.unicine.entidades.Pelicula;
-import com.unicine.entidades.Coleccion;
-import com.unicine.entidades.ColeccionComposicion;
-import com.unicine.entidades.EstadoPropio;
-import com.unicine.repo.ClienteRepo;
-import com.unicine.repo.ColeccionRepo;
-import com.unicine.repo.PeliculaRepo;
+import com.unicine.entidades.AdministradorTeatro;
+import com.unicine.entidades.Ciudad;
+import com.unicine.entidades.Teatro;
+import com.unicine.repo.AdministradorTeatroRepo;
+import com.unicine.repo.CiudadRepo;
+import com.unicine.repo.TeatroRepo;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class ColeccionTest {
+public class TeatroTest {
 
     /* NOTE: En las pruebas de unitarias o de integracion se menciona que se debe comprobar el resultado con el Assertions, pero no esta de mas imprimir el resultado para verificar visualmente que se esta obteniendo lo esperado */
 
     @Autowired
-    private ColeccionRepo coleccionRepo;
+    private TeatroRepo teatroRepo;
 
     @Autowired
-    private ClienteRepo clienteRepo;
+    private CiudadRepo ciudadRepo;
 
     @Autowired
-    private PeliculaRepo peliculaRepo;
+    private AdministradorTeatroRepo adminRepo;
 
     @Test
     @Sql("classpath:dataset.sql")
     public void registrar() {
 
-        Cliente cliente = clienteRepo.findById(1006000044).orElse(null);
+        Ciudad ciudad = ciudadRepo.findById(1).orElse(null);
 
-        Pelicula pelicula = peliculaRepo.findById(1).orElse(null);
+        AdministradorTeatro admin = adminRepo.findById(1).orElse(null);
         
-        Coleccion coleccion = new Coleccion(2.0, EstadoPropio.FAVORITO, cliente, pelicula);
+        Teatro teatro = new Teatro("Carrera 15 # 1-2 Centro", "3162594316", ciudad, admin);
+        teatro.setCodigo(7);
 
-        Coleccion guardado = coleccionRepo.save(coleccion);
+        Teatro guardado = teatroRepo.save(teatro);
 
         Assertions.assertNotNull(guardado);
 
@@ -59,17 +58,15 @@ public class ColeccionTest {
     @Sql("classpath:dataset.sql")
     public void actualizar() {
 
-        ColeccionComposicion id = new ColeccionComposicion(1009000011, 1);
-
-        Coleccion guardado = coleccionRepo.findById(id).orElse(null);
+        Teatro guardado = teatroRepo.findById(1).orElse(null);
 
         System.out.println(guardado);
 
-        guardado.setEstadoPeliculaPropio(EstadoPropio.valueOf("FAVORITO"));
+        guardado.setTelefono("3145093154");
 
-        Coleccion actualizado = coleccionRepo.save(guardado);
+        Teatro actualizado = teatroRepo.save(guardado);
 
-        Assertions.assertEquals("FAVORITO", guardado.getEstadoPeliculaPropio().toString());
+        Assertions.assertEquals("3145093154", guardado.getTelefono());
 
         System.out.println("\n" + "Registro actualizado:");
 
@@ -80,15 +77,13 @@ public class ColeccionTest {
     @Sql("classpath:dataset.sql")
     public void eliminar() {
 
-        ColeccionComposicion id = new ColeccionComposicion(1009000011, 1);
-
-        Coleccion buscado = coleccionRepo.findById(id).orElse(null);
+        Teatro buscado = teatroRepo.findById(1).orElse(null);
 
         System.out.println(buscado);
 
-        coleccionRepo.delete(buscado);
+        teatroRepo.delete(buscado);
 
-        Coleccion verificacion = coleccionRepo.findById(id).orElse(null);
+        Teatro verificacion = teatroRepo.findById(1).orElse(null);
 
         Assertions.assertNull(verificacion);
 
@@ -101,9 +96,7 @@ public class ColeccionTest {
     @Sql("classpath:dataset.sql")
     public void obtener() {
 
-        ColeccionComposicion id = new ColeccionComposicion(1009000011, 1);
-
-        Optional<Coleccion> buscado = coleccionRepo.findById(id);
+        Optional<Teatro> buscado = teatroRepo.findById(1);
 
         Assertions.assertTrue(buscado.isPresent());
 
@@ -116,14 +109,14 @@ public class ColeccionTest {
     @Sql("classpath:dataset.sql")
     public void listar() {
 
-        List<Coleccion> colecciones = coleccionRepo.findAll();
+        List<Teatro> teatros = teatroRepo.findAll();
 
-        Assertions.assertEquals(5, colecciones.size());
+        Assertions.assertEquals(6, teatros.size());
 
         System.out.println("\n" + "Listado de registros:");
 
-        for (Coleccion c : colecciones) {
-            System.out.println(c);
+        for (Teatro t : teatros) {
+            System.out.println(t);
         }
     }
 
@@ -131,14 +124,14 @@ public class ColeccionTest {
     @Sql("classpath:dataset.sql")
     public void listarPaginado() {
 
-        List<Coleccion> colecciones = coleccionRepo.findAll(PageRequest.of(0, 3)).toList();
+        List<Teatro> teatros = teatroRepo.findAll(PageRequest.of(0, 3)).toList();
 
-        Assertions.assertEquals(3, colecciones.size());
+        Assertions.assertEquals(3, teatros.size());
 
         System.out.println("\n" + "Listado de registros paginado:");
 
-        for (Coleccion c : colecciones) {
-            System.out.println(c);
+        for (Teatro t : teatros) {
+            System.out.println(t);
         }
     }
 
@@ -146,14 +139,31 @@ public class ColeccionTest {
     @Sql("classpath:dataset.sql")
     public void listarOrdenado() {
 
-        List<Coleccion> colecciones = coleccionRepo.findAll(Sort.by("puntuacion"));
+        List<Teatro> teatros = teatroRepo.findAll(Sort.by("codigo"));
 
-        Assertions.assertEquals(5, colecciones.size());
+        Assertions.assertEquals(6, teatros.size());
 
         System.out.println("\n" + "Listado de registros ordenado:");
 
-        for (Coleccion c : colecciones) {
-            System.out.println(c);
+        for (Teatro t : teatros) {
+            System.out.println(t);
+        }
+    }
+
+    // SECTION: Consultas personalizadas para la base de datos
+
+    @Test
+    @Sql("classpath:dataset.sql")
+    public void listarTeatrosCiudad() {
+
+        List<Teatro> teatros = teatroRepo.listarTeatrosCiudad("Armenia");
+
+        Assertions.assertEquals(1, teatros.size());
+
+        System.out.println("\n" + "Listado de teatros por ciudad:");
+
+        for (Teatro t : teatros) {
+            System.out.println(t);
         }
     }
 }

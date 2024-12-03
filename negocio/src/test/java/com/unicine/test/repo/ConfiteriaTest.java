@@ -1,6 +1,8 @@
-package com.unicine.test;
+package com.unicine.test.repo;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
@@ -12,32 +14,32 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.jdbc.Sql;
 
-import com.unicine.entidades.Ciudad;
-import com.unicine.repo.CiudadRepo;
+import com.unicine.entidades.Confiteria;
+import com.unicine.repo.ConfiteriaRepo;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class CiudadTest {
+public class ConfiteriaTest {
 
-    /**
-     * NOTE: En las pruebas de unitarias o de integracion se menciona que se debe comprobar el resultado con el Assertions, pero no esta de mas imprimir el resultado para verificar visualmente que se esta obteniendo lo esperado
-     */
+    /* NOTE: En las pruebas de unitarias o de integracion se menciona que se debe comprobar el resultado con el Assertions, pero no esta de mas imprimir el resultado para verificar visualmente que se esta obteniendo lo esperado */
 
     @Autowired
-    private CiudadRepo ciudadRepo;
+    private ConfiteriaRepo confiteriaRepo;
 
-    // SECTION: Consultas basicas para la base de datos
-    
     @Test
     @Sql("classpath:dataset.sql")
     public void registrar() {
 
-        Ciudad ciudad = new Ciudad("Cartagena");
-        ciudad.setCodigo(6);
+        // Creamos un mapa de imágenes
+        Map<String, String> imagenes = new HashMap<>();
+        imagenes.put("http://example.com/imagen-1.jpg", "perfil");
 
-        Ciudad guardado = ciudadRepo.save(ciudad);
+        Confiteria confiteria = new Confiteria("Papas Fritas", 5000.00, imagenes);
+        confiteria.setCodigo(6);
 
-        Assertions.assertEquals("Cartagena", guardado.getNombre());
+        Confiteria guardado = confiteriaRepo.save(confiteria);
+
+        Assertions.assertEquals("Papas Fritas", guardado.getNombre());
 
         System.out.println("\n" + "Registro guardado:");
         
@@ -48,15 +50,15 @@ public class CiudadTest {
     @Sql("classpath:dataset.sql")
     public void actualizar() {
 
-        Ciudad guardado = ciudadRepo.findById(1).orElse(null);
+        Confiteria guardado = confiteriaRepo.findById(1).orElse(null);
 
         System.out.println(guardado);
 
-        guardado.setNombre("Cucuta");
+        guardado.setNombre("Combo para Adultos");
 
-        Ciudad actualizado = ciudadRepo.save(guardado);
+        Confiteria actualizado = confiteriaRepo.save(guardado);
 
-        Assertions.assertEquals("Cucuta", actualizado.getNombre());
+        Assertions.assertEquals("Combo para Adultos", actualizado.getNombre());
 
         System.out.println("\n" + "Registro actualizado:");
 
@@ -67,13 +69,13 @@ public class CiudadTest {
     @Sql("classpath:dataset.sql")
     public void eliminar() {
 
-        Ciudad buscado = ciudadRepo.findById(1).orElse(null);
+        Confiteria buscado = confiteriaRepo.findById(1).orElse(null);
 
         System.out.println(buscado);
 
-        ciudadRepo.delete(buscado);
+        confiteriaRepo.delete(buscado);
 
-        Ciudad verificacion = ciudadRepo.findById(1).orElse(null);
+        Confiteria verificacion = confiteriaRepo.findById(1).orElse(null);
 
         Assertions.assertNull(verificacion);
 
@@ -86,7 +88,7 @@ public class CiudadTest {
     @Sql("classpath:dataset.sql")
     public void obtener() {
 
-        Optional<Ciudad> buscado = ciudadRepo.findById(1);
+        Optional<Confiteria> buscado = confiteriaRepo.findById(1);
 
         Assertions.assertTrue(buscado.isPresent());
 
@@ -99,13 +101,13 @@ public class CiudadTest {
     @Sql("classpath:dataset.sql")
     public void listar() {
 
-        List<Ciudad> ciudades = ciudadRepo.findAll();
+        List<Confiteria> confiterias = confiteriaRepo.findAll();
 
-        Assertions.assertEquals(5, ciudades.size());
+        Assertions.assertEquals(5, confiterias.size());
 
         System.out.println("\n" + "Listado de registros:");
 
-        for (Ciudad c : ciudades) {
+        for (Confiteria c : confiterias) {
             System.out.println(c);
         }
     }
@@ -114,13 +116,13 @@ public class CiudadTest {
     @Sql("classpath:dataset.sql")
     public void listarPaginado() {
 
-        List<Ciudad> ciudades = ciudadRepo.findAll(PageRequest.of(0, 3)).toList();
+        List<Confiteria> confiterias = confiteriaRepo.findAll(PageRequest.of(0, 3)).toList();
 
-        Assertions.assertEquals(3, ciudades.size());
+        Assertions.assertEquals(3, confiterias.size());
 
         System.out.println("\n" + "Listado de registros paginado:");
 
-        for (Ciudad c : ciudades) {
+        for (Confiteria c : confiterias) {
             System.out.println(c);
         }
     }
@@ -129,29 +131,14 @@ public class CiudadTest {
     @Sql("classpath:dataset.sql")
     public void listarOrdenado() {
 
-        List<Ciudad> ciudades = ciudadRepo.findAll(Sort.by("nombre"));
+        List<Confiteria> confiterias = confiteriaRepo.findAll(Sort.by("nombre"));
 
-        Assertions.assertEquals(5, ciudades.size());
+        Assertions.assertEquals(5, confiterias.size());
 
         System.out.println("\n" + "Listado de registros ordenado:");
 
-        for (Ciudad c : ciudades) {
+        for (Confiteria c : confiterias) {
             System.out.println(c);
-        }
-    }
-
-    @Test
-    @Sql("classpath:dataset.sql")
-    public void contarTeatrosCiudad() {
-
-        List<Object[]> ciudades = ciudadRepo.contarTeatrosCiudad();
-
-        Assertions.assertNotNull(ciudades);
-
-        System.out.println("\n" + "Cantidad de teatros en cada ciudad:");
-
-        for (Object[] c : ciudades) {
-            System.out.println(c[0] + " - " + c[1]);
         }
     }
 }

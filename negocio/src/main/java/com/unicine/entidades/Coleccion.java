@@ -26,8 +26,8 @@ public class Coleccion implements Serializable {
 
     // SECTION: Atributos
 
-    @Max(5)
-    @Positive
+    @Max(value = 5, message = "La puntuación no puede ser mayor a cinco")
+    @Positive(message = "La puntuación debe ser un número positivo")
     @Column(nullable = true)
     private Double puntuacion;
 

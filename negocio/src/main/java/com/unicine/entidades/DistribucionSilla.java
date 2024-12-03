@@ -2,7 +2,10 @@ package com.unicine.entidades;
 
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -34,18 +37,23 @@ public class DistribucionSilla implements Serializable {
     private Integer codigo;
 
     // REVIEW: Estudiar aplicacion de arreglo para el esquema
+    @NotBlank(message = "El esquema no puede estar en blanco")
+    @Size(max = 200, message = "El esquema no puede tener más de doscientos caracteres")
     @Column(nullable = false, length = 200)
     private String esquema;
 
-    @Positive
+    @NotNull(message = "El total de sillas no puede estar vacío")
+    @Positive(message = "El total de sillas debe ser un número positivo")
     @Column(nullable = false)
     private Integer totalSillas;
 
-    @Positive
+    @NotNull(message = "El número de filas no puede estar vacío")
+    @Positive(message = "El número de filas debe ser un número positivo")
     @Column(nullable = false)
     private Integer filas;
 
-    @Positive
+    @NotNull(message = "El número de columnas no puede estar vacío")
+    @Positive(message = "El número de columnas debe ser un número positivo")
     @Column(nullable = false)
     private Integer columnas;
 

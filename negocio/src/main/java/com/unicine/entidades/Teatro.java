@@ -3,6 +3,9 @@ package com.unicine.entidades;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,9 +36,13 @@ public class Teatro implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer codigo;
 
+    @NotNull(message = "La dirección no puede estar vacía")
+    @Size(min = 1, max = 100, message = "La dirección debe tener al menos un caracter hasta cien")
     @Column(nullable = false, length = 100)
     private String direccion;
 
+    @NotNull(message = "El teléfono no puede estar vacío")
+    @Pattern(regexp = "^.{10}$", message = "El teléfono debe tener exactamente diez caracteres")
     @Column(nullable = false, length = 20)
     private String telefono;
 

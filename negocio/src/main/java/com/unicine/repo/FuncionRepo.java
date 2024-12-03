@@ -67,7 +67,7 @@ public interface FuncionRepo extends JpaRepository<Funcion, Integer> {
     List<DetalleFuncionesDTO> listarDetallesFunciones(Integer codigoPelicula);
 
     /**
-     * - Consulta para obtener las funciones con compras vacias de teatros especificos
+     * #️⃣ Consulta para obtener las funciones con compras vacias de teatros especificos
      * @param atributos: codigo del teatro
      * @return lista de funciones
      */
@@ -75,7 +75,7 @@ public interface FuncionRepo extends JpaRepository<Funcion, Integer> {
     List<Funcion> funcionesComprasVaciasTeatro(Integer codigoTeatro);
 
     /**
-     * - Consulta para obtener las funciones de un teatro en un rango de fechas usa el current date para tomar la fecha actual en fecha
+     * #️⃣ Consulta para obtener las funciones de un teatro en un rango de fechas usa el current date para tomar la fecha actual en fecha
      * @param atributos: codigo del teatro, fecha de inicio, fecha de fin
      * @return lista de funciones
      */

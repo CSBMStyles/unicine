@@ -4,7 +4,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -38,17 +40,22 @@ public class Compra implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer codigo;
 
+    @NotNull(message = "El medio de pago no puede estar vacío")
     @Column (nullable = false, length = 10)
     @Enumerated(EnumType.STRING)
     private MedioPago medioPago;
 
+    @NotNull(message = "La fecha de compra no puede estar vacía")
     @Column(nullable = false)
     private LocalDateTime fechaCompra;
 
+    @NotNull(message = "La fecha de la película no puede estar vacía")
+    @FutureOrPresent(message = "La fecha de la película debe estar en el presente o en el futuro")
     @Column(nullable = false)
     private LocalDateTime fechaPelicula;
 
-    @Positive
+    @NotNull(message = "El valor total no puede estar vacío")
+    @PositiveOrZero(message = "El valor total debe ser un número positivo")
     @Column(nullable = false)
     private Double valorTotal;
 

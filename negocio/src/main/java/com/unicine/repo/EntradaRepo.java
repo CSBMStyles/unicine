@@ -16,6 +16,8 @@ public interface EntradaRepo extends JpaRepository<Entrada, Integer> {
     // REVIEW: La razón de esta variable es para evitar escribir el nombre completo de la clase en la consulta es inutil para una sola consulta para para varios DTO es util
     String direccion = "com.unicine.dto";
 
+    // SECTION: Relacion con compra
+
     /**
      * Consulta para obtener las entradas de una compra
      * @param atributos: codigo de la compra
@@ -23,6 +25,8 @@ public interface EntradaRepo extends JpaRepository<Entrada, Integer> {
      */
     @Query("select e from Compra c join c.entradas e where c.codigo = :codigoCompra")
     List<Entrada> obtenerEntradasCompra(Integer codigoCompra);
+
+    // SECTION: Relacion con funcion
 
     /**
      * Consulta para obtener las sillas ocupadas de una funcion

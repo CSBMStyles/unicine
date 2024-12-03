@@ -4,7 +4,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -42,6 +44,7 @@ public class Pelicula implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer codigo;
 
+    @NotNull(message = "El estado no puede estar vacío")
     @Column(nullable = false, length = 10)
     @Enumerated(EnumType.STRING)
     private EstadoPelicula estado;
@@ -50,14 +53,17 @@ public class Pelicula implements Serializable {
     @Fetch(FetchMode.SELECT)
     private List<GeneroPelicula> generos;
 
+    @NotNull(message = "El nombre no puede estar vacío")
+    @Size(max = 100, message = "El nombre no puede tener más de cien caracteres")
     @Column(nullable = false, length = 100)
     private String nombre;
 
     @ElementCollection
     @Column(nullable = true, length = 150)
-    private List<String> repartos;
+    private List< @Size(max = 150, message = "Los nombres del reparto no puede tener mas de cientocincuenta caracteres") String> repartos;
 
     @Lob
+    @NotNull(message = "La sinopsis no puede estar vacía")
     @Column(nullable = false, columnDefinition = "text")
     private String sinopsis;
 
@@ -65,15 +71,18 @@ public class Pelicula implements Serializable {
     @Column(nullable = false)
     private Map<String, String> imagenes;
 
-    @Column(nullable = false, length = 200)
+    @Size(max = 200, message = "La url del trailer no puede tener más de doscientos caracteres")
+    @Column(nullable = true, length = 200)
     private String urlTrailer;
 
-    @Max(5)
-    @Positive
+    @Max(value = 5, message = "La puntuación no puede ser mayor a cinco")
+    @Positive(message = "La puntuación debe ser un número positivo")
+    @Column(nullable = false)
     private Double puntuacion;
 
-    @Max(100)
-    @Positive
+    @Max(value = 30, message = "La restricción de edad no puede ser mayor a treinta")
+    @Positive(message = "La restricción de edad debe ser un número positivo")
+    @Column(nullable = true)
     private Integer restriccionEdad;
 
     // SECTION: Relaciones

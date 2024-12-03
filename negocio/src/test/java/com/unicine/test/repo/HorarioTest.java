@@ -1,4 +1,4 @@
-package com.unicine.test;
+package com.unicine.test.repo;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;

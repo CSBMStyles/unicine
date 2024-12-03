@@ -3,7 +3,8 @@ package com.unicine.entidades;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,10 +33,13 @@ public class CompraConfiteria implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer codigo;
 
-    @Positive
+    @NotNull(message = "El precio no puede estar vacío")
+    @PositiveOrZero(message = "El precio debe ser un número positivo o cero")
     @Column(nullable = false)
     private Double precio;
 
+    @NotNull(message = "Las unidades no pueden estar vacías")
+    @PositiveOrZero(message = "Las unidades deben ser un número positivo o cero")
     @Column(nullable = false)
     private Integer unidades;
 

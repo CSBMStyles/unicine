@@ -7,6 +7,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -16,6 +20,8 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+
+import com.unicine.util.validacion.anotaciones.MultiPattern;
 
 @Entity
 @Getter
@@ -27,9 +33,12 @@ public class Cliente extends Persona implements Serializable {
 
     // SECTION: Atributos
 
+    @NotNull(message = "El estado no puede estar vacío")
     @Column(nullable = false)
     private Boolean estado;
 
+    @NotNull(message = "El apellido no puede estar vacío")
+    @Past(message = "La fecha de nacimiento debe estar en el pasado")
     @Column(nullable = false)
     private LocalDate fechaNacimiento;
 
@@ -37,6 +46,11 @@ public class Cliente extends Persona implements Serializable {
     @Column(nullable = true)
     private Map<String, String> imagenes;
 
+    @Size(max = 5, message = "El teléfono no puede tener más de cinco telefonos")
+    @MultiPattern({
+        @Pattern(regexp = "^[0-9]+$", message = "El teléfono solo puede contener números"),
+        @Pattern(regexp = "^.{10}$", message = "El teléfono debe tener exactamente diez caracteres")
+    })
     @ElementCollection
     @Column(nullable = true, length = 20)
     private List<String> telefonos;
@@ -53,7 +67,7 @@ public class Cliente extends Persona implements Serializable {
 
     @ToString.Exclude
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
-    private List<Coleccion> coleccion;
+    private List<Coleccion> colecciones;
 
     // SECTION: Constructor
 

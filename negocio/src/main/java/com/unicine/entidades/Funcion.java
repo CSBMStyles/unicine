@@ -3,7 +3,8 @@ package com.unicine.entidades;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -34,7 +35,8 @@ public class Funcion implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer codigo;
 
-    @Positive
+    @NotNull(message = "El precio no puede estar vacío")
+    @PositiveOrZero(message = "El precio debe ser un número positivo")
     @Column(nullable = false)
     private Double precio;
 
